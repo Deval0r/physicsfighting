@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class WASDMovement : MonoBehaviour
 {
@@ -13,6 +14,17 @@ public class WASDMovement : MonoBehaviour
     private float coyoteTimeCounter;  // Tracks remaining coyote time
     private bool jumpRequested;     // Track if we need to jump next physics update
 
+    [Header("Dash Settings")]
+    public float dashForce = 20f;
+    public float dashCooldown = 1f;
+    public float dashDuration = 0.2f;
+    private bool canDash = true;
+    private bool isDashing = false;
+
+    [Header("Dash Effects")]
+    public ParticleSystem dashEffect;
+    public AudioClip dashSound;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -25,6 +37,12 @@ public class WASDMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && coyoteTimeCounter > 0)
         {
             jumpRequested = true;
+        }
+
+        // Handle dash input
+        if (Input.GetMouseButtonDown(1) && canDash && !isDashing)
+        {
+            StartCoroutine(PerformDash());
         }
     }
 
@@ -50,8 +68,61 @@ public class WASDMovement : MonoBehaviour
         isGrounded = false;
     }
 
+    private IEnumerator PerformDash()
+    {
+        // Start dash
+        canDash = false;
+        isDashing = true;
+
+        // Store current velocity
+        Vector3 originalVelocity = rb.linearVelocity;
+
+        // Get movement direction (if no input, use the direction we're moving)
+        Vector3 dashDirection;
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float verticalInput = Input.GetAxisRaw("Vertical");
+
+        if (Mathf.Approximately(horizontalInput, 0f) && Mathf.Approximately(verticalInput, 0f))
+        {
+            // If no input, dash in the direction we're moving horizontally
+            Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+            dashDirection = horizontalVelocity.normalized;
+            // If we're not moving horizontally, dash forward relative to camera
+            if (dashDirection.magnitude < 0.1f)
+            {
+                dashDirection = cameraController.GetForwardDirection();
+            }
+        }
+        else
+        {
+            // Use input direction relative to camera
+            dashDirection = (cameraController.GetForwardDirection() * verticalInput + 
+                           cameraController.GetRightDirection() * horizontalInput).normalized;
+        }
+
+        // Apply dash force
+        rb.linearVelocity = dashDirection * dashForce;
+
+        // Play effects
+        if (dashEffect != null) dashEffect.Play();
+        if (dashSound != null) AudioSource.PlayClipAtPoint(dashSound, transform.position);
+
+        // Wait for dash duration
+        yield return new WaitForSeconds(dashDuration);
+
+        // End dash
+        isDashing = false;
+
+        // Wait for cooldown
+        yield return new WaitForSeconds(dashCooldown - dashDuration);
+        canDash = true;
+    }
+
     void FixedUpdate()
     {
+        // Skip normal movement processing if dashing
+        if (isDashing) return;
+
         // Add null check for camera controller
         if (cameraController == null)
         {
