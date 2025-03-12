@@ -1287,6 +1287,14 @@ MonoBehaviour:
   damage: 10
   playerCamera: {fileID: 732126280}
   gunTransform: {fileID: 1274548373}
+  swayAmount: 0.06
+  swaySpeed: 6
+  breathingAmount: 0.05
+  breathingSpeed: 1
+  aimSwayAmount: 0.02
+  aimFOV: 30
+  aimPosition: {x: 0, y: -0.1, z: 0.5}
+  aimSpeed: 10
 --- !u!1001 &1590251002
 PrefabInstance:
   m_ObjectHideFlags: 0
