@@ -17,6 +17,8 @@ public class GunController : MonoBehaviour
     public Vector3 aimPosition = new Vector3(0f, -0.1f, 0.5f);
     public float aimSpeed = 10f;
 
+    public FPPWASDMovement playerMovement; // Reference to the FPPWASDMovement script
+
     private Vector3 initialGunPosition;
     private Quaternion initialGunRotation;
     private float swayTimer;
@@ -30,6 +32,7 @@ public class GunController : MonoBehaviour
         initialGunRotation = gunTransform.localRotation;
         initialCameraPosition = gunTransform.localPosition;
         initialCameraFOV = playerCamera.fieldOfView;
+        playerMovement = GetComponent<FPPWASDMovement>(); // Assign FPPWASDMovement reference
     }
 
     void Update()
@@ -55,17 +58,35 @@ public class GunController : MonoBehaviour
 
     void AimGun()
     {
+        // Align the gun and firePoint with the camera's forward direction
         Vector3 cameraForward = playerCamera.transform.forward;
         gunTransform.rotation = Quaternion.LookRotation(cameraForward);
         firePoint.rotation = Quaternion.LookRotation(cameraForward);
+
+        // Apply sway and breathing adjustments on top of camera alignment
+        ApplySway();
+        ApplyBreathing();
     }
 
     void ApplySway()
     {
-        float moveX = Input.GetAxis("Horizontal") * (Input.GetButton("Fire2") ? aimSwayAmount : swayAmount);
-        float moveY = Input.GetAxis("Vertical") * (Input.GetButton("Fire2") ? aimSwayAmount : swayAmount);
+        float currentSwayAmount = swayAmount;
+        float currentSwaySpeed = swaySpeed;
 
-        swayTimer += Time.deltaTime * swaySpeed;
+        if (Input.GetButton("Fire2"))
+        {
+            currentSwayAmount = aimSwayAmount;
+        }
+        else if (Input.GetKey(KeyCode.LeftShift) && playerMovement.stamina > 0)
+        {
+            currentSwayAmount = swayAmount * 2f; // Increase sway amount while sprinting
+            currentSwaySpeed = swaySpeed * 2f; // Increase sway speed while sprinting
+        }
+
+        float moveX = Input.GetAxis("Horizontal") * currentSwayAmount;
+        float moveY = Input.GetAxis("Vertical") * currentSwayAmount;
+
+        swayTimer += Time.deltaTime * currentSwaySpeed;
         float swayX = Mathf.Sin(swayTimer) * moveX;
         float swayY = Mathf.Sin(swayTimer) * moveY;
 
@@ -76,7 +97,12 @@ public class GunController : MonoBehaviour
     void ApplyBreathing()
     {
         breathingTimer += Time.deltaTime * breathingSpeed;
-        float breathingOffset = Mathf.Sin(breathingTimer) * (Input.GetButton("Fire2") ? aimSwayAmount : breathingAmount);
+        float breathingOffset = Mathf.Sin(breathingTimer) * breathingAmount;
+
+        if (Input.GetKey(KeyCode.LeftShift) && playerMovement.stamina > 0)
+        {
+            breathingOffset *= 2f; // Increase breathing effect while sprinting
+        }
 
         gunTransform.localPosition += new Vector3(0f, breathingOffset, 0f);
     }

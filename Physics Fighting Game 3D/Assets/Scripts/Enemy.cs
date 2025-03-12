@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     public float attackRadius = 2f;
     public float strafeDistance = 3f;
     public float decisionTime = 2f;
+    public float turnSpeed = 5f; // New variable for turning speed
 
     private NavMeshAgent agent;
     private Transform player;
@@ -40,6 +41,7 @@ public class Enemy : MonoBehaviour
             else
             {
                 PursuePlayer();
+                FacePlayer(); // Ensure the enemy faces the player while pursuing
                 decisionTimer -= Time.deltaTime;
 
                 if (decisionTimer <= 0)
@@ -76,6 +78,13 @@ public class Enemy : MonoBehaviour
     {
         agent.isStopped = true;
         // Implement your attack logic here, e.g., dealing damage to the player
+    }
+
+    void FacePlayer()
+    {
+        Vector3 direction = (player.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed);
     }
 
     public void TakeDamage(int damageAmount)

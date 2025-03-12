@@ -1,12 +1,21 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FPPWASDMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
+    public float sprintSpeed = 10f;
     public float jumpForce = 5f;
     public float gravity = -9.81f;
-    
+
+    [Header("Stamina Settings")]
+    public float maxStamina = 100f;
+    public float staminaRegenRate = 10f;
+    public float sprintStaminaDrainRate = 20f;
+    public float jumpStaminaCost = 10f; // New variable for jump stamina cost
+    public Slider staminaBar;
+
     [Header("Camera Settings")]
     public float mouseSensitivity = 2f;
     public Transform playerCamera;
@@ -16,23 +25,26 @@ public class FPPWASDMovement : MonoBehaviour
     private float verticalRotation = 0f;
     private Vector3 velocity;
     private bool isGrounded;
+    public float stamina; // Changed to public
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        
+        stamina = maxStamina;
+
         // Lock and hide the cursor
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        if (staminaBar != null)
+        {
+            staminaBar.maxValue = maxStamina;
+            staminaBar.value = stamina;
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // Add this debug line
-        Debug.Log($"Horizontal: {Input.GetAxis("Horizontal")}, Vertical: {Input.GetAxis("Vertical")}");
-        
         // Check if player is grounded
         isGrounded = controller.isGrounded;
         if (isGrounded && velocity.y < 0)
@@ -52,18 +64,37 @@ public class FPPWASDMovement : MonoBehaviour
         // Rotate the player left/right
         transform.Rotate(Vector3.up * mouseX);
 
-        // Handle WASD movement
+        // Handle WASD movement and sprinting
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
-        // Create movement vector relative to camera's forward direction
         Vector3 move = transform.right * moveX + transform.forward * moveZ;
+
+        float currentSpeed = moveSpeed;
+        if (Input.GetKey(KeyCode.LeftShift) && stamina > 0)
+        {
+            currentSpeed = sprintSpeed;
+            stamina -= sprintStaminaDrainRate * Time.deltaTime;
+            if (stamina < 0) stamina = 0;
+        }
+        else
+        {
+            stamina += staminaRegenRate * Time.deltaTime;
+            if (stamina > maxStamina) stamina = maxStamina;
+        }
+
+        if (staminaBar != null)
+        {
+            staminaBar.value = stamina;
+        }
+
         move = move.normalized; // Normalize to prevent faster diagonal movement
-        controller.Move(move * moveSpeed * Time.deltaTime);
+        controller.Move(move * currentSpeed * Time.deltaTime);
 
         // Handle jumping
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded && stamina >= jumpStaminaCost)
         {
             velocity.y = Mathf.Sqrt(jumpForce * -2f * gravity);
+            stamina -= jumpStaminaCost; // Reduce stamina on jump
         }
 
         // Apply gravity
