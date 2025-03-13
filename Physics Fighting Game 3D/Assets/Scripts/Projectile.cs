@@ -10,6 +10,8 @@ public class Projectile : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.isKinematic = false;
+        rb.useGravity = false; // Ensure gravity is off if you want the projectile to move in a straight line
         initialPosition = transform.position; // Store the initial position
     }
 
@@ -30,13 +32,12 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider other)
     {
-        Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+        Enemy enemy = other.gameObject.GetComponent<Enemy>();
         if (enemy != null)
         {
             enemy.TakeDamage(damage);
-            rb.isKinematic = true; // Disable physics interactions
         }
 
         Destroy(gameObject);
