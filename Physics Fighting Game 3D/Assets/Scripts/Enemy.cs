@@ -110,9 +110,18 @@ public class Enemy : MonoBehaviour
 
     void ShowFloatingDamage(int damageAmount)
     {
-        GameObject damageNumber = Instantiate(floatingDamagePrefab, transform.position, Quaternion.identity, transform);
-        FloatingDamageNumber damageScript = damageNumber.GetComponent<FloatingDamageNumber>();
-        damageScript.SetDamageText(damageAmount);
+        if (floatingDamagePrefab != null)
+        {
+            // Instantiate the damage number at the enemy's position with an upward offset
+            Vector3 spawnPosition = transform.position + Vector3.up;
+            GameObject damageNumber = Instantiate(floatingDamagePrefab, spawnPosition, Quaternion.identity);
+            FloatingDamageNumber damageScript = damageNumber.GetComponent<FloatingDamageNumber>();
+            damageScript.SetDamageText(damageAmount);
+        }
+        else
+        {
+            Debug.LogError("Floating Damage Prefab is not assigned.");
+        }
     }
 
     void Die()
