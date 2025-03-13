@@ -11,20 +11,29 @@ public class ThirdPersonCameraView2 : MonoBehaviour
 
     void Start()
     {
-        //all this means is that when entering game view in unity the cursor will not be visible
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+    
     }
     void Update()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+        if (Input.GetMouseButton(1))
+        {
+            //all this means is that when pressing right mouse button in unity the cursor will not be visible
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
 
-        rotationX += mouseX;
-        rotationY -= mouseY; //this line ensures that rotationY will not be inverted due to weird unity stuff
-        rotationY = Mathf.Clamp(rotationY, -90f, 90f);
+            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
-        transform.rotation = Quaternion.Euler(rotationY, rotationX, 0);
+            rotationX += mouseX;
+            rotationY -= mouseY; //this line ensures that rotationY will not be inverted due to weird unity stuff
+            rotationY = Mathf.Clamp(rotationY, -90f, 90f);
+            transform.rotation = Quaternion.Euler(rotationY, rotationX, 0);
+        } else 
+        {
+            //again, this is for making the cursor visible when not pressing right mouse button
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
 
         if (Input.GetKey(KeyCode.W))
         {
