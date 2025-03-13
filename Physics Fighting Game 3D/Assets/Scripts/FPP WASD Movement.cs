@@ -26,6 +26,7 @@ public class FPPWASDMovement : MonoBehaviour
     private Vector3 velocity;
     private bool isGrounded;
     public float stamina; // Changed to public
+    private bool isSprinting;
 
     void Start()
     {
@@ -70,7 +71,9 @@ public class FPPWASDMovement : MonoBehaviour
         Vector3 move = transform.right * moveX + transform.forward * moveZ;
 
         float currentSpeed = moveSpeed;
-        if (Input.GetKey(KeyCode.LeftShift) && stamina > 0)
+        isSprinting = Input.GetKey(KeyCode.LeftShift) && stamina > 0;
+
+        if (isSprinting)
         {
             currentSpeed = sprintSpeed;
             stamina -= sprintStaminaDrainRate * Time.deltaTime;
@@ -100,5 +103,15 @@ public class FPPWASDMovement : MonoBehaviour
         // Apply gravity
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    public bool IsSprinting // New property to check if the player is sprinting
+    {
+        get { return isSprinting; }
+    }
+
+    public float Speed // Property to get the player's current speed
+    {
+        get { return controller.velocity.magnitude; }
     }
 }
