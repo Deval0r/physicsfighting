@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
@@ -11,23 +12,34 @@ public class Enemy : MonoBehaviour
     public float turnSpeed = 5f; // Variable for turning speed
     public float iframeDuration = 0.5f; // Duration of invincibility frames
     public GameObject floatingDamagePrefab; // Reference to the floating damage number prefab
+    public Animator animator; // Reference to the Animator component
 
     private NavMeshAgent agent;
     private Transform player;
     private float decisionTimer;
     private float iframeTimer; // Timer to track iframe duration
+    private bool isDead = false; // Flag to check if the enemy is already dead
+
+    // Reference to the character control script
+    private MonoBehaviour characterControlScript;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        characterControlScript = GetComponent<ZombieCharacterControl>(); // Replace with the actual script name
+
+        // Debug log to check if floatingDamagePrefab is assigned
+        if (floatingDamagePrefab == null)
+        {
+            Debug.LogError("Floating Damage Prefab is not assigned.");
+        }
     }
 
     void Update()
     {
-        if (health <= 0)
+        if (isDead)
         {
-            Die();
             return;
         }
 
@@ -94,7 +106,7 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(int damageAmount)
     {
-        if (iframeTimer <= 0) // Only take damage if iframes have elapsed
+        if (iframeTimer <= 0 && !isDead) // Only take damage if iframes have elapsed and not already dead
         {
             health -= damageAmount;
             iframeTimer = iframeDuration; // Reset iframe timer
@@ -116,7 +128,16 @@ public class Enemy : MonoBehaviour
             Vector3 spawnPosition = transform.position + Vector3.up;
             GameObject damageNumber = Instantiate(floatingDamagePrefab, spawnPosition, Quaternion.identity);
             FloatingDamageNumber damageScript = damageNumber.GetComponent<FloatingDamageNumber>();
-            damageScript.SetDamageText(damageAmount);
+
+            // Debug log to check if damageScript is assigned
+            if (damageScript == null)
+            {
+                Debug.LogError("FloatingDamageNumber component is not found on the instantiated prefab.");
+            }
+            else
+            {
+                damageScript.SetDamageText(damageAmount);
+            }
         }
         else
         {
@@ -126,6 +147,22 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
-        Destroy(gameObject);
+        isDead = true; // Set the death flag
+        agent.isStopped = true; // Stop the agent from moving
+        if (characterControlScript != null)
+        {
+            characterControlScript.enabled = false; // Disable the character control script
+        }
+        Debug.Log("Triggering DieTrigger");
+        animator.SetTrigger("DieTrigger"); // Trigger the death animation
+        StartCoroutine(WaitForDeathAnimation()); // Wait for the animation to finish
+    }
+
+    IEnumerator WaitForDeathAnimation()
+    {
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        Debug.Log("Current Animator State: " + stateInfo.fullPathHash);
+        yield return new WaitForSeconds(stateInfo.length);
+        Destroy(gameObject); // Destroy the enemy after the death animation finishes
     }
 }
