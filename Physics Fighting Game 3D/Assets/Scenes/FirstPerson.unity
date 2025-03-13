@@ -1795,7 +1795,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 1331197527401278859, guid: fd8cc9dc0b945f54d847e89219b35ad0, type: 3}
   firePoint: {fileID: 353944767}
-  projectileSpeed: 200
+  projectileSpeed: 150
   damage: 10
   playerCamera: {fileID: 732126280}
   gunTransform: {fileID: 1274548373}
@@ -2483,6 +2483,12 @@ MonoBehaviour:
   turnSpeed: 2
   iframeDuration: 0.5
   floatingDamagePrefab: {fileID: 47058419254859521, guid: 4013ca0aa7fd67e4095dcf1fa10f8c44, type: 3}
+  animator: {fileID: 1927420786}
+--- !u!95 &1927420786 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 399528755723534299, guid: aa27a5d234e148745a90790e1c87ce24, type: 3}
+  m_PrefabInstance: {fileID: 2004333429}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2004333429
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2572,7 +2578,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 399528755730910307, guid: aa27a5d234e148745a90790e1c87ce24, type: 3}
-      insertIndex: -1
+      insertIndex: 2
       addedObject: {fileID: 1927420782}
     - targetCorrespondingSourceObject: {fileID: 399528755730910307, guid: aa27a5d234e148745a90790e1c87ce24, type: 3}
       insertIndex: -1
