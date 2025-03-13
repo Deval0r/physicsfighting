@@ -8,11 +8,14 @@ public class Enemy : MonoBehaviour
     public float attackRadius = 2f;
     public float strafeDistance = 3f;
     public float decisionTime = 2f;
-    public float turnSpeed = 5f; // New variable for turning speed
+    public float turnSpeed = 5f; // Variable for turning speed
+    public float iframeDuration = 0.5f; // Duration of invincibility frames
+    public GameObject floatingDamagePrefab; // Reference to the floating damage number prefab
 
     private NavMeshAgent agent;
     private Transform player;
     private float decisionTimer;
+    private float iframeTimer; // Timer to track iframe duration
 
     void Start()
     {
@@ -27,6 +30,8 @@ public class Enemy : MonoBehaviour
             Die();
             return;
         }
+
+        iframeTimer -= Time.deltaTime; // Update iframe timer
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
@@ -89,12 +94,25 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(int damageAmount)
     {
-        health -= damageAmount;
-
-        if (health <= 0)
+        if (iframeTimer <= 0) // Only take damage if iframes have elapsed
         {
-            Die();
+            health -= damageAmount;
+            iframeTimer = iframeDuration; // Reset iframe timer
+
+            ShowFloatingDamage(damageAmount); // Show floating damage number
+
+            if (health <= 0)
+            {
+                Die();
+            }
         }
+    }
+
+    void ShowFloatingDamage(int damageAmount)
+    {
+        GameObject damageNumber = Instantiate(floatingDamagePrefab, transform.position, Quaternion.identity, transform);
+        FloatingDamageNumber damageScript = damageNumber.GetComponent<FloatingDamageNumber>();
+        damageScript.SetDamageText(damageAmount);
     }
 
     void Die()
