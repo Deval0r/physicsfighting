@@ -9,10 +9,6 @@ public class ThirdPersonCameraView2 : MonoBehaviour
     [SerializeField] private float mouseSensitivity;
     [SerializeField] private float moveSpeed;
 
-    void Start()
-    {
-    
-    }
     void Update()
     {
         if (Input.GetMouseButton(1))
