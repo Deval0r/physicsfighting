@@ -7,43 +7,71 @@ public class PlaceBuilding : MonoBehaviour
     public GameObject buildingPrefab;
     private GameObject buildingClone;
     private bool isSelectedBuilding;
-    private Material buildingMaterial;
-
     [SerializeField] private int scaleFactor;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        buildingMaterial = buildingPrefab.GetComponent<MeshRenderer>().material;
+        buildingClone = null;
     }
 
     // Update is called once per frame
     void Update()
     {
-        print(isSelectedBuilding);
-        if (Input.GetMouseButtonDown(0) && isSelectedBuilding)
+        if (isSelectedBuilding)
         {
+            // Raycast from the mouse position to the world
             Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(mouseRay, out RaycastHit hit))
             {
-                buildingPosition = new Vector3(Mathf.Round(hit.point.x/scaleFactor) * scaleFactor, Mathf.Round(hit.point.y/scaleFactor) * scaleFactor, Mathf.Round(hit.point.z/scaleFactor)*scaleFactor );
-                Instantiate(buildingPrefab, buildingPosition, Quaternion.identity);
-                buildingClone.GetComponent<MeshRenderer>().material.color = Color.white;
+                // Calculate the snapped position based on scaleFactor
+                buildingPosition = new Vector3(Mathf.Round(hit.point.x / scaleFactor) * scaleFactor,
+                                               Mathf.Round(hit.point.y / scaleFactor) * scaleFactor,
+                                               Mathf.Round(hit.point.z / scaleFactor) * scaleFactor);
+
+                // Move the building clone to the new position and change color
+                if (buildingClone != null)
+                {
+                    buildingClone.GetComponent<MeshRenderer>().material.color = Color.green;
+                    buildingClone.transform.position = buildingPosition;
+                }
             }
-            isSelectedBuilding = false;
-        }
-        if (isSelectedBuilding && !Input.GetMouseButtonDown(0))
-        {
-            Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(mouseRay, out RaycastHit hit))
+
+            // If the buildingClone is not instantiated, instantiate it when the mouse is clicked
+            if (buildingClone == null)
             {
-                buildingPosition = new Vector3(Mathf.Round(hit.point.x/scaleFactor) * scaleFactor, Mathf.Round(hit.point.y/scaleFactor) * scaleFactor, Mathf.Round(hit.point.z/scaleFactor)*scaleFactor );
-                buildingClone.GetComponent<MeshRenderer>().material.color = Color.green;
-                buildingClone.transform.position = buildingPosition;
+                if (Input.GetMouseButtonDown(0))
+                {
+                    // Instantiate the building prefab at the snapped position
+                    buildingClone = Instantiate(buildingPrefab, buildingPosition, Quaternion.identity);
+                    buildingClone.GetComponent<MeshRenderer>().material.color = Color.green;
+                }
             }
-            isSelectedBuilding = true;
+            else if (Input.GetMouseButtonDown(0))
+            {
+                // Confirm the placement of the building
+                Ray greenMouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(greenMouseRay, out RaycastHit hitGreen))
+                {
+                    // Snapping the position again after the click
+                    buildingPosition = new Vector3(Mathf.Round(hitGreen.point.x / scaleFactor) * scaleFactor,
+                                                   Mathf.Round(hitGreen.point.y / scaleFactor) * scaleFactor,
+                                                   Mathf.Round(hitGreen.point.z / scaleFactor) * scaleFactor);
+                    buildingClone.transform.position = buildingPosition;
+
+                    // Instantiate the building prefab at the snapped position
+                    Instantiate(buildingPrefab, buildingPosition, Quaternion.identity);
+
+                    // Reset the color of the building clone to white after placement
+                    buildingClone.GetComponent<MeshRenderer>().material.color = Color.white;
+                    buildingClone = null; // Reset clone
+                    isSelectedBuilding = false; // Deselect the building
+                }
+            }
         }
     }
 
+    // This method is called to start building placement
     public void PlaceBuildings()
     {
         isSelectedBuilding = true;
