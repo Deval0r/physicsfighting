@@ -14,6 +14,9 @@ public class Enemy : MonoBehaviour
     public GameObject floatingDamagePrefab; // Reference to the floating damage number prefab
     public Animator animator; // Reference to the Animator component
 
+    public AudioClip[] deathSounds; // Array of death sounds
+    public AudioSource audioSource; // AudioSource for playing sounds
+
     private NavMeshAgent agent;
     private Transform player;
     private float decisionTimer;
@@ -33,6 +36,16 @@ public class Enemy : MonoBehaviour
         if (floatingDamagePrefab == null)
         {
             Debug.LogError("Floating Damage Prefab is not assigned.");
+        }
+
+        // Check if the AudioSource is assigned
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+            if (audioSource == null)
+            {
+                Debug.LogError("No AudioSource found on the Enemy. Assign one in the Inspector.");
+            }
         }
     }
 
@@ -149,13 +162,33 @@ public class Enemy : MonoBehaviour
     {
         isDead = true; // Set the death flag
         agent.isStopped = true; // Stop the agent from moving
+
         if (characterControlScript != null)
         {
             characterControlScript.enabled = false; // Disable the character control script
         }
+
+        // Play a random death sound
+        PlayRandomDeathSound();
+
         Debug.Log("Triggering DieTrigger");
         animator.SetTrigger("DieTrigger"); // Trigger the death animation
         StartCoroutine(WaitForDeathAnimation()); // Wait for the animation to finish
+    }
+
+    void PlayRandomDeathSound()
+    {
+        if (deathSounds.Length > 0 && audioSource != null)
+        {
+            int randomIndex = Random.Range(0, deathSounds.Length); // Pick a random sound
+            audioSource.clip = deathSounds[randomIndex];
+            audioSource.Play();
+            Debug.Log($"Playing death sound: {deathSounds[randomIndex].name}");
+        }
+        else
+        {
+            Debug.LogError("No death sounds assigned or AudioSource is missing!");
+        }
     }
 
     IEnumerator WaitForDeathAnimation()

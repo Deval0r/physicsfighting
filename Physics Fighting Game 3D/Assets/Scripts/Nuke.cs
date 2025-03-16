@@ -3,12 +3,17 @@ using UnityEngine;
 public class Nuke : MonoBehaviour
 {
     public GameObject[] zombieSpawnerPrefabs; // Array of zombie spawner prefabs
-    public Transform[] spawnLocations; // Array of spawn locations for the spawners
-    public float flashDuration = 5f; // Duration of the screen flash fade-out
-    private Renderer nukeRenderer; // Reference to the nuke's Renderer
-    private bool hasTriggered = false; // Ensures the effects only happen once
+    public GameObject[] spawnPointObjects;   // Array of spawn points as GameObjects
+    private Transform[] spawnLocations;     // Converted array of spawn points as Transforms
+    public float flashDuration = 5f;        // Duration of the screen flash fade-out
+    private Renderer nukeRenderer;          // Reference to the nuke's Renderer
+    private bool hasTriggered = false;      // Ensures the effects only happen once
 
+    public Color fogColor = Color.red;      // New fog color after the nuke hits
+    public float fogDensity = 0.2f;         // New fog density after the nuke hits
     private ScreenFlashManager screenFlashManager; // Reference to the ScreenFlashManager
+
+    public AudioManager audioManager;       // Reference to the AudioManager
 
     void Start()
     {
@@ -24,6 +29,30 @@ public class Nuke : MonoBehaviour
         if (nukeRenderer == null)
         {
             Debug.LogError("No Renderer found on the Nuke object. Visibility changes won't work!");
+        }
+
+        // Find all spawn points in the scene by their tag
+        GameObject[] spawnPointObjects = GameObject.FindGameObjectsWithTag("SpawnPoint");
+        if (spawnPointObjects.Length == 0)
+        {
+            Debug.LogError($"No spawn points found with the tag 'SpawnPoint'!");
+        }
+        else
+        {
+            // Convert GameObjects to Transforms
+            spawnLocations = new Transform[spawnPointObjects.Length];
+            for (int i = 0; i < spawnPointObjects.Length; i++)
+            {
+                spawnLocations[i] = spawnPointObjects[i].transform;
+            }
+            Debug.Log("Spawn locations successfully loaded from the scene.");
+        }
+
+        // Find the AudioManager in the scene
+        audioManager = FindObjectOfType<AudioManager>();
+        if (audioManager == null)
+        {
+            Debug.LogError("No AudioManager found in the scene!");
         }
     }
 
@@ -46,6 +75,16 @@ public class Nuke : MonoBehaviour
                 Debug.LogError("ScreenFlashManager not found. Flash will not occur.");
             }
 
+            // Adjust fog settings
+            AdjustFog();
+
+            // Trigger looping audio
+            if (audioManager != null)
+            {
+                audioManager.PlayLoopingAudio();
+                Debug.Log("Looping audio triggered.");
+            }
+
             // Make the nuke invisible immediately
             if (nukeRenderer != null)
             {
@@ -65,9 +104,23 @@ public class Nuke : MonoBehaviour
         }
     }
 
+    void AdjustFog()
+    {
+        RenderSettings.fog = true; // Ensure fog is enabled
+        RenderSettings.fogColor = fogColor; // Change fog color
+        RenderSettings.fogDensity = fogDensity; // Change fog density
+        Debug.Log($"Fog color changed to {fogColor}, and density changed to {fogDensity}.");
+    }
+
     void TriggerNukeEffects()
     {
-        // Spawn zombie spawners at specified locations
+        if (spawnLocations == null || spawnLocations.Length == 0)
+        {
+            Debug.LogError("No spawn locations available for spawning zombie spawners!");
+            return;
+        }
+
+        // Spawn zombie spawners at each location
         foreach (Transform location in spawnLocations)
         {
             int randomIndex = Random.Range(0, zombieSpawnerPrefabs.Length);
