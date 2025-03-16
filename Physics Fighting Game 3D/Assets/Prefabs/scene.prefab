@@ -139,9 +139,13 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   flashDuration: 4
   fogColor: {r: 0.26409966, g: 0.40251565, b: 0.1886001, a: 1}
   fogDensity: 0.2
+  audioManager: {fileID: 0}
 --- !u!82 &8278041287771522572
 AudioSource:
   m_ObjectHideFlags: 0
