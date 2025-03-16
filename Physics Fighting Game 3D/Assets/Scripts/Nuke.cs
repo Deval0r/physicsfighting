@@ -3,12 +3,14 @@ using UnityEngine;
 public class Nuke : MonoBehaviour
 {
     public GameObject[] zombieSpawnerPrefabs; // Array of zombie spawner prefabs
-    public string spawnPointTag = "SpawnPoint"; // Tag to identify spawn points in the scene
-    private Transform[] spawnLocations;        // Array of spawn locations as Transforms
-    public float flashDuration = 5f;           // Duration of the screen flash fade-out
-    private Renderer nukeRenderer;             // Reference to the nuke's Renderer
-    private bool hasTriggered = false;         // Ensures the effects only happen once
+    public GameObject[] spawnPointObjects;   // Array of spawn points as GameObjects
+    private Transform[] spawnLocations;     // Converted array of spawn points as Transforms
+    public float flashDuration = 5f;        // Duration of the screen flash fade-out
+    private Renderer nukeRenderer;          // Reference to the nuke's Renderer
+    private bool hasTriggered = false;      // Ensures the effects only happen once
 
+    public Color fogColor = Color.red;      // New fog color after the nuke hits
+    public float fogDensity = 0.2f;         // New fog density after the nuke hits
     private ScreenFlashManager screenFlashManager; // Reference to the ScreenFlashManager
 
     void Start()
@@ -28,10 +30,10 @@ public class Nuke : MonoBehaviour
         }
 
         // Find all spawn points in the scene by their tag
-        GameObject[] spawnPointObjects = GameObject.FindGameObjectsWithTag(spawnPointTag);
+        GameObject[] spawnPointObjects = GameObject.FindGameObjectsWithTag("SpawnPoint");
         if (spawnPointObjects.Length == 0)
         {
-            Debug.LogError($"No spawn points found with the tag '{spawnPointTag}'!");
+            Debug.LogError($"No spawn points found with the tag 'SpawnPoint'!");
         }
         else
         {
@@ -64,6 +66,9 @@ public class Nuke : MonoBehaviour
                 Debug.LogError("ScreenFlashManager not found. Flash will not occur.");
             }
 
+            // Adjust fog settings
+            AdjustFog();
+
             // Make the nuke invisible immediately
             if (nukeRenderer != null)
             {
@@ -81,6 +86,14 @@ public class Nuke : MonoBehaviour
             // Destroy the nuke immediately after all actions
             Destroy(gameObject);
         }
+    }
+
+    void AdjustFog()
+    {
+        RenderSettings.fog = true; // Ensure fog is enabled
+        RenderSettings.fogColor = fogColor; // Change fog color
+        RenderSettings.fogDensity = fogDensity; // Change fog density
+        Debug.Log($"Fog color changed to {fogColor}, and density changed to {fogDensity}.");
     }
 
     void TriggerNukeEffects()
