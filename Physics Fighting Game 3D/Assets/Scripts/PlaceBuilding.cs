@@ -7,6 +7,7 @@ public class PlaceBuilding : MonoBehaviour
     public GameManager gameManager;
     private GameObject buildingClone; 
     private bool isSelectedBuilding; 
+    public int buildingCount;
     [SerializeField] private int scaleFactor;
 
     void Start() 
@@ -27,6 +28,7 @@ public class PlaceBuilding : MonoBehaviour
                 Destroy(buildingClone); 
                 buildingClone = null; 
                 isSelectedBuilding = false;
+                buildingCount++;
                 gameManager.money -= 500;
             }
         }
