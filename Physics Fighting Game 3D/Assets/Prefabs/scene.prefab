@@ -143,7 +143,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   flashDuration: 4
-  fogColor: {r: 0.26409966, g: 0.40251565, b: 0.1886001, a: 1}
+  fogColor: {r: 0.18986149, g: 0.28930807, b: 0.13737582, a: 1}
   fogDensity: 0.2
   audioManager: {fileID: 0}
 --- !u!82 &8278041287771522572
