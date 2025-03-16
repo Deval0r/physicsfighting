@@ -1250,7 +1250,7 @@ MonoBehaviour:
   ambientAudioSource: {fileID: 198449938}
   loopingClip: {fileID: 8300000, guid: fd199cc9ad87e7345850fc92dfb68c10, type: 3}
   zombieScreamsClip: {fileID: 8300000, guid: 3c6aa9c57d484bb4685118e80ac5ba93, type: 3}
-  detectionRadius: 39.8
+  detectionRadius: 30
   zombieLayer:
     serializedVersion: 2
     m_Bits: 64
