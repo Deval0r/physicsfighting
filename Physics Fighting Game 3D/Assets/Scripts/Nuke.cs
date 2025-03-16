@@ -13,6 +13,8 @@ public class Nuke : MonoBehaviour
     public float fogDensity = 0.2f;         // New fog density after the nuke hits
     private ScreenFlashManager screenFlashManager; // Reference to the ScreenFlashManager
 
+    public AudioManager audioManager;       // Reference to the AudioManager
+
     void Start()
     {
         // Find the ScreenFlashManager in the scene
@@ -45,6 +47,13 @@ public class Nuke : MonoBehaviour
             }
             Debug.Log("Spawn locations successfully loaded from the scene.");
         }
+
+        // Find the AudioManager in the scene
+        audioManager = FindObjectOfType<AudioManager>();
+        if (audioManager == null)
+        {
+            Debug.LogError("No AudioManager found in the scene!");
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -68,6 +77,13 @@ public class Nuke : MonoBehaviour
 
             // Adjust fog settings
             AdjustFog();
+
+            // Trigger looping audio
+            if (audioManager != null)
+            {
+                audioManager.PlayLoopingAudio();
+                Debug.Log("Looping audio triggered.");
+            }
 
             // Make the nuke invisible immediately
             if (nukeRenderer != null)
