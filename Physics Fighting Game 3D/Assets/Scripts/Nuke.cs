@@ -3,10 +3,11 @@ using UnityEngine;
 public class Nuke : MonoBehaviour
 {
     public GameObject[] zombieSpawnerPrefabs; // Array of zombie spawner prefabs
-    public Transform[] spawnLocations; // Array of spawn locations for the spawners
-    public float flashDuration = 5f; // Duration of the screen flash fade-out
-    private Renderer nukeRenderer; // Reference to the nuke's Renderer
-    private bool hasTriggered = false; // Ensures the effects only happen once
+    public string spawnPointTag = "SpawnPoint"; // Tag to identify spawn points in the scene
+    private Transform[] spawnLocations;        // Array of spawn locations as Transforms
+    public float flashDuration = 5f;           // Duration of the screen flash fade-out
+    private Renderer nukeRenderer;             // Reference to the nuke's Renderer
+    private bool hasTriggered = false;         // Ensures the effects only happen once
 
     private ScreenFlashManager screenFlashManager; // Reference to the ScreenFlashManager
 
@@ -24,6 +25,23 @@ public class Nuke : MonoBehaviour
         if (nukeRenderer == null)
         {
             Debug.LogError("No Renderer found on the Nuke object. Visibility changes won't work!");
+        }
+
+        // Find all spawn points in the scene by their tag
+        GameObject[] spawnPointObjects = GameObject.FindGameObjectsWithTag(spawnPointTag);
+        if (spawnPointObjects.Length == 0)
+        {
+            Debug.LogError($"No spawn points found with the tag '{spawnPointTag}'!");
+        }
+        else
+        {
+            // Convert GameObjects to Transforms
+            spawnLocations = new Transform[spawnPointObjects.Length];
+            for (int i = 0; i < spawnPointObjects.Length; i++)
+            {
+                spawnLocations[i] = spawnPointObjects[i].transform;
+            }
+            Debug.Log("Spawn locations successfully loaded from the scene.");
         }
     }
 
@@ -67,7 +85,13 @@ public class Nuke : MonoBehaviour
 
     void TriggerNukeEffects()
     {
-        // Spawn zombie spawners at specified locations
+        if (spawnLocations == null || spawnLocations.Length == 0)
+        {
+            Debug.LogError("No spawn locations available for spawning zombie spawners!");
+            return;
+        }
+
+        // Spawn zombie spawners at each location
         foreach (Transform location in spawnLocations)
         {
             int randomIndex = Random.Range(0, zombieSpawnerPrefabs.Length);

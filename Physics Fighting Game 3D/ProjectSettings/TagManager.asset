@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - NUKETRIGGEROBJ
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX

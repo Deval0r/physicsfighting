@@ -132,8 +132,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bef758236d1191d4383e18ac03d1c347, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zombieSpawnerPrefabs: []
-  spawnLocations: []
+  zombieSpawnerPrefabs:
+  - {fileID: 5241464764182249714, guid: 7efdee3d65fb1d740bd15095d27388df, type: 3}
+  spawnPointObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   flashDuration: 4
 --- !u!82 &8278041287771522572
 AudioSource:
