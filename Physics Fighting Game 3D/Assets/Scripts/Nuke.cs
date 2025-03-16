@@ -1,32 +1,67 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Nuke : MonoBehaviour
 {
     public GameObject[] zombieSpawnerPrefabs; // Array of zombie spawner prefabs
     public Transform[] spawnLocations; // Array of spawn locations for the spawners
-    public AudioClip nukeSound; // Nuke sound effect
-    public Image screenFlashImage; // UI Image for the screen flash
-    public float flashDuration = 4f; // Duration of the screen flash
+    public float flashDuration = 5f; // Duration of the screen flash fade-out
+    private Renderer nukeRenderer; // Reference to the nuke's Renderer
+    private bool hasTriggered = false; // Ensures the effects only happen once
 
-    private AudioSource audioSource;
+    private ScreenFlashManager screenFlashManager; // Reference to the ScreenFlashManager
 
     void Start()
     {
-        // Add an AudioSource component if not already present
-        audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
+        // Find the ScreenFlashManager in the scene
+        screenFlashManager = FindObjectOfType<ScreenFlashManager>();
+        if (screenFlashManager == null)
         {
-            audioSource = gameObject.AddComponent<AudioSource>();
+            Debug.LogError("No ScreenFlashManager found in the scene!");
+        }
+
+        // Get the nuke's Renderer component for visibility control
+        nukeRenderer = GetComponent<Renderer>();
+        if (nukeRenderer == null)
+        {
+            Debug.LogError("No Renderer found on the Nuke object. Visibility changes won't work!");
         }
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        // Trigger the nuke effects when it hits the ground
-        if (collision.gameObject.CompareTag("Ground"))
+        // Trigger the nuke effects when it touches the ground
+        if (!hasTriggered && collision.gameObject.CompareTag("Ground"))
         {
+            Debug.Log("Nuke hit the ground!");
+            hasTriggered = true;
+
+            // Signal the ScreenFlashManager to trigger the flash
+            if (screenFlashManager != null)
+            {
+                screenFlashManager.TriggerFlash();
+                Debug.Log("Flash triggered on ScreenFlashManager.");
+            }
+            else
+            {
+                Debug.LogError("ScreenFlashManager not found. Flash will not occur.");
+            }
+
+            // Make the nuke invisible immediately
+            if (nukeRenderer != null)
+            {
+                Debug.Log("Disabling nuke renderer to make it invisible.");
+                nukeRenderer.enabled = false;
+            }
+            else
+            {
+                Debug.LogError("Nuke renderer not found. Cannot make it invisible.");
+            }
+
+            // Trigger additional effects like spawning zombie spawners
             TriggerNukeEffects();
+
+            // Destroy the nuke immediately after all actions
+            Destroy(gameObject);
         }
     }
 
@@ -37,50 +72,7 @@ public class Nuke : MonoBehaviour
         {
             int randomIndex = Random.Range(0, zombieSpawnerPrefabs.Length);
             Instantiate(zombieSpawnerPrefabs[randomIndex], location.position, Quaternion.identity);
+            Debug.Log($"Zombie spawner spawned at {location.position}");
         }
-
-        // Play the nuke sound
-        if (nukeSound != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(nukeSound);
-        }
-
-        // Start the screen flash effect
-        if (screenFlashImage != null)
-        {
-            StartCoroutine(FlashScreen());
-        }
-
-        // Destroy the nuke object
-        Destroy(gameObject);
-    }
-
-    System.Collections.IEnumerator FlashScreen()
-    {
-        Color originalColor = screenFlashImage.color;
-        Color flashColor = new Color(1f, 1f, 1f, 1f); // Full white
-
-        float elapsedTime = 0f;
-
-        // Fade in the flash
-        while (elapsedTime < flashDuration / 2)
-        {
-            elapsedTime += Time.deltaTime;
-            screenFlashImage.color = Color.Lerp(originalColor, flashColor, elapsedTime / (flashDuration / 2));
-            yield return null;
-        }
-
-        elapsedTime = 0f;
-
-        // Fade out the flash
-        while (elapsedTime < flashDuration / 2)
-        {
-            elapsedTime += Time.deltaTime;
-            screenFlashImage.color = Color.Lerp(flashColor, originalColor, elapsedTime / (flashDuration / 2));
-            yield return null;
-        }
-
-        // Reset the flash color
-        screenFlashImage.color = originalColor;
     }
 }
