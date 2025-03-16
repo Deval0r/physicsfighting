@@ -2,58 +2,36 @@ using UnityEngine;
 
 public class PlaceBuilding : MonoBehaviour
 {
-    private Vector3 mousePosition;
-    private Vector3 buildingPosition;
-    public GameObject buildingPrefab;
-    private GameObject buildingClone;
-    private bool isSelectedBuilding;
+    private Vector3 buildingPosition; 
+    public GameObject buildingPrefab; 
+    private GameObject buildingClone; 
+    private bool isSelectedBuilding; 
     [SerializeField] private int scaleFactor;
-
-    void Start()
-    {
-        buildingClone = null;
-    }
 
     void Update()
     {
-        if (isSelectedBuilding)
+        if (isSelectedBuilding && buildingClone != null) 
         {
-            Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(mouseRay, out RaycastHit hit))
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit)) 
+                buildingClone.transform.position = new Vector3(Mathf.Round(hit.point.x / scaleFactor) * scaleFactor, Mathf.Round(hit.point.y / scaleFactor) * scaleFactor, Mathf.Round(hit.point.z / scaleFactor) * scaleFactor);
+
+            if (Input.GetMouseButtonDown(0)) 
             {
-                buildingPosition = new Vector3(Mathf.Round(hit.point.x / scaleFactor) * scaleFactor, Mathf.Round(hit.point.y / scaleFactor) * scaleFactor, Mathf.Round(hit.point.z / scaleFactor) * scaleFactor);
-                if (buildingClone != null)
-                {
-                    buildingClone.GetComponent<MeshRenderer>().material.color = Color.blue;
-                    buildingClone.transform.position = buildingPosition;
-                }
-            }
-            if (buildingClone == null)
-            {
-                if (Input.GetMouseButtonDown(0))
-                {
-                    buildingClone = Instantiate(buildingPrefab, buildingPosition, Quaternion.identity);
-                    buildingClone.GetComponent<MeshRenderer>().material.color = Color.blue;
-                }
-            }
-            else if (Input.GetMouseButtonDown(0))
-            {
-                Ray greenMouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(greenMouseRay, out RaycastHit hitGreen))
-                {
-                    buildingPosition = new Vector3(Mathf.Round(hitGreen.point.x / scaleFactor) * scaleFactor, Mathf.Round(hitGreen.point.y / scaleFactor) * scaleFactor, Mathf.Round(hitGreen.point.z / scaleFactor) * scaleFactor);
-                    buildingClone.transform.position = buildingPosition;
-                    Instantiate(buildingPrefab, buildingPosition, Quaternion.identity);
-                    buildingClone.GetComponent<MeshRenderer>().material.color = Color.white;
-                    buildingClone = null;
-                    isSelectedBuilding = false;
-                }
+                Instantiate(buildingPrefab, buildingClone.transform.position, Quaternion.identity); 
+                Destroy(buildingClone); 
+                buildingClone = null; 
+                isSelectedBuilding = false;
             }
         }
     }
 
-    public void PlaceBuildings()
-    {
-        isSelectedBuilding = true;
+    public void PlaceBuildings() 
+    { 
+        if (buildingClone == null) 
+        { 
+            buildingClone = Instantiate(buildingPrefab); 
+            buildingClone.GetComponent<MeshRenderer>().material.color = Color.blue; 
+            isSelectedBuilding = true; 
+        } 
     }
 }
