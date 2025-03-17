@@ -11,6 +11,7 @@ public class Nuke : MonoBehaviour
 
     public Color fogColor = Color.red;      // New fog color after the nuke hits
     public float fogDensity = 0.2f;         // New fog density after the nuke hits
+    public Material newSkybox;              // Skybox material to change to after the nuke hits
     private ScreenFlashManager screenFlashManager; // Reference to the ScreenFlashManager
 
     public AudioManager audioManager;       // Reference to the AudioManager
@@ -75,8 +76,8 @@ public class Nuke : MonoBehaviour
                 Debug.LogError("ScreenFlashManager not found. Flash will not occur.");
             }
 
-            // Adjust fog settings
-            AdjustFog();
+            // Adjust fog and skybox settings
+            AdjustFogAndSkybox();
 
             // Trigger looping audio
             if (audioManager != null)
@@ -104,12 +105,24 @@ public class Nuke : MonoBehaviour
         }
     }
 
-    void AdjustFog()
+    void AdjustFogAndSkybox()
     {
+        // Adjust fog settings
         RenderSettings.fog = true; // Ensure fog is enabled
         RenderSettings.fogColor = fogColor; // Change fog color
         RenderSettings.fogDensity = fogDensity; // Change fog density
         Debug.Log($"Fog color changed to {fogColor}, and density changed to {fogDensity}.");
+
+        // Change skybox
+        if (newSkybox != null)
+        {
+            RenderSettings.skybox = newSkybox; // Set the new skybox material
+            Debug.Log("Skybox changed to the new material.");
+        }
+        else
+        {
+            Debug.LogError("No skybox material assigned in the Nuke script!");
+        }
     }
 
     void TriggerNukeEffects()

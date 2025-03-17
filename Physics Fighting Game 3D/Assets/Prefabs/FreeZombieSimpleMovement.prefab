@@ -215,6 +215,9 @@ PrefabInstance:
       addedObject: {fileID: 1524455254184548244}
     - targetCorrespondingSourceObject: {fileID: 6930373436760084395, guid: 86954bd586b5cbc4380a87a05acbf57f, type: 3}
       insertIndex: -1
+      addedObject: {fileID: -8939086475728126702}
+    - targetCorrespondingSourceObject: {fileID: 6930373436760084395, guid: 86954bd586b5cbc4380a87a05acbf57f, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 8179234098239334204}
     - targetCorrespondingSourceObject: {fileID: 6930373436760084395, guid: 86954bd586b5cbc4380a87a05acbf57f, type: 3}
       insertIndex: -1
@@ -385,6 +388,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &-8939086475728126702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2687726371312210820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a42bb24b42f034db7894fc7219eec307, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackRadius: 2
+  attackDamage: 10
+  attackCooldown: 2
+  animator: {fileID: 2687726371304824892}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  attackSounds:
+  - {fileID: 8300000, guid: 30aa5173b1c1140d3a3f908fd84bfd4b, type: 3}
+  - {fileID: 8300000, guid: 0542b04a949a9492fab18f15ac750577, type: 3}
 --- !u!136 &8179234098239334204
 CapsuleCollider:
   m_ObjectHideFlags: 0
