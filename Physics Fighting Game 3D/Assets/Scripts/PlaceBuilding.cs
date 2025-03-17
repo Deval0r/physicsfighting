@@ -9,6 +9,9 @@ public class PlaceBuilding : MonoBehaviour
     private GameObject buildingClone; 
     private bool isSelectedBuilding; 
     public int buildingCount;
+
+    public AudioSource soundSource; // AudioSource to play the sound
+    public AudioClip triggerSound;
     [SerializeField] private int scaleFactor;
 
     void Start() 
@@ -35,6 +38,7 @@ public class PlaceBuilding : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && gameManager.money >= 500 && Physics.Raycast(buildingClone.transform.position, Vector3.down, out RaycastHit hitInfo, 1)) 
             {
                 GameObject placedBuilding = Instantiate(buildingPrefab, buildingClone.transform.position, buildingClone.transform.rotation); 
+                soundSource.PlayOneShot(triggerSound);
                 placedBuilding.GetComponent<Collider>().enabled = true;
                 Destroy(buildingClone); 
                 buildingClone = null; 

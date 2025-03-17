@@ -1564,6 +1564,8 @@ MonoBehaviour:
   buildingPrefab: {fileID: 287352192}
   gameManager: {fileID: 0}
   buildingCount: 0
+  soundSource: {fileID: 1494394303}
+  triggerSound: {fileID: 8300000, guid: 69cf4f07d913b4435892dc7640af3ffe, type: 3}
   scaleFactor: 5
 --- !u!4 &1494394301
 Transform:
