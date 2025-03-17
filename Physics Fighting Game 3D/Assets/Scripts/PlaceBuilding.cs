@@ -32,7 +32,7 @@ public class PlaceBuilding : MonoBehaviour
                 }
             }
 
-            if (Input.GetMouseButtonDown(0) && gameManager.money >= 500) 
+            if (Input.GetMouseButtonDown(0) && gameManager.money >= 500 && Physics.Raycast(buildingClone.transform.position, Vector3.down, out RaycastHit hitInfo, 1)) 
             {
                 GameObject placedBuilding = Instantiate(buildingPrefab, buildingClone.transform.position, buildingClone.transform.rotation); 
                 placedBuilding.GetComponent<Collider>().enabled = true;
