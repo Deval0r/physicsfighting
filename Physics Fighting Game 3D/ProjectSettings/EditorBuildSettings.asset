@@ -8,6 +8,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/BLOCKBR GAME/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/CityBuilder.unity
+    guid: 5487c9b2a7ee64e139ae6ee68f276506
+  - enabled: 1
+    path: Assets/Scenes/FirstPerson.unity
+    guid: 905d6cdfb53a443d6b2bc29c27375334
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
