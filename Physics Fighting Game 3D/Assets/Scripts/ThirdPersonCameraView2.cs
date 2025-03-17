@@ -47,5 +47,13 @@ public class ThirdPersonCameraView2 : MonoBehaviour
         {
             transform.position += transform.right * Time.deltaTime * moveSpeed;
         }
+        if (Input.GetKey(KeyCode.Space))
+        {
+            transform.position += transform.up * Time.deltaTime * moveSpeed;
+        }
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            transform.position -= transform.up * Time.deltaTime * moveSpeed;
+        }
     }
 }

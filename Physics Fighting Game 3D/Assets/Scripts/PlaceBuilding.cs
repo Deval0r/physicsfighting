@@ -19,11 +19,21 @@ public class PlaceBuilding : MonoBehaviour
         if (isSelectedBuilding && buildingClone != null) 
         {
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
+            {
                 buildingClone.transform.position = new Vector3(Mathf.Round(hit.point.x / scaleFactor) * scaleFactor, Mathf.Round(hit.point.y / 3.3f) * 3.3f, Mathf.Round(hit.point.z / scaleFactor) * scaleFactor);
+                if (Input.GetKeyDown(KeyCode.E)) 
+                {
+                    buildingClone.transform.Rotate(0, 90, 0);
+                }
+                if (Input.GetKeyDown(KeyCode.Q)) 
+                {
+                    buildingClone.transform.Rotate(0, -90, 0);
+                }
+            }
 
             if (Input.GetMouseButtonDown(0) && gameManager.money >= 500) 
             {
-                GameObject placedBuilding = Instantiate(buildingPrefab, buildingClone.transform.position, Quaternion.identity); 
+                GameObject placedBuilding = Instantiate(buildingPrefab, buildingClone.transform.position, buildingClone.transform.rotation); 
                 placedBuilding.GetComponent<Collider>().enabled = true;
                 Destroy(buildingClone); 
                 buildingClone = null; 
