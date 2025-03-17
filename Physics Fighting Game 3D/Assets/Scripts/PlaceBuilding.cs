@@ -42,6 +42,12 @@ public class PlaceBuilding : MonoBehaviour
                 buildingCount++;
                 gameManager.money -= 500;
             }
+            if (Input.GetMouseButtonDown(0) && gameManager.money < 500) 
+            {
+                Destroy(buildingClone); 
+                buildingClone = null; 
+                isSelectedBuilding = false;
+            }
         }
     }
 
