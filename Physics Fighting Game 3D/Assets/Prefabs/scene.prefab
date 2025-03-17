@@ -143,8 +143,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   flashDuration: 4
-  fogColor: {r: 0.18986149, g: 0.28930807, b: 0.13737582, a: 1}
+  fogColor: {r: 0.047703806, g: 0.0754717, b: 0.033819865, a: 1}
   fogDensity: 0.2
+  newSkybox: {fileID: 2100000, guid: a0daeca0aa0b34168847c221cae0b4a6, type: 2}
   audioManager: {fileID: 0}
 --- !u!82 &8278041287771522572
 AudioSource:
