@@ -8,6 +8,7 @@ public class PlaceBuilding : MonoBehaviour
     public GameManager gameManager;
     private GameObject buildingClone; 
     private bool isSelectedBuilding; 
+    private bool isRemovingBuilding;
     public int buildingCount;
 
     public AudioSource soundSource; // AudioSource to play the sound
@@ -20,6 +21,7 @@ public class PlaceBuilding : MonoBehaviour
     }
     void Update()
     {
+        print(isRemovingBuilding);
         if (isSelectedBuilding && buildingClone != null) 
         {
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
@@ -52,6 +54,23 @@ public class PlaceBuilding : MonoBehaviour
                 buildingClone = null; 
                 isSelectedBuilding = false;
             }
+            if (isRemovingBuilding && Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hitInfo2))
+            {
+                    // Check if the object hit by the raycast is tagged as "Building"
+                if (hitInfo2.collider.gameObject.tag == "Building") 
+                {
+                    // Change the color of the building to red (for visual feedback)
+                    MeshRenderer meshRenderer = hitInfo2.collider.gameObject.GetComponent<MeshRenderer>();
+                    if (meshRenderer != null)
+                    {
+                        meshRenderer.material.color = Color.red;
+                    }
+
+                    // Destroy the building and decrement the building count
+                    //Destroy(hitInfo2.collider.gameObject); 
+                    //buildingCount--;
+                }
+            }
         }
     }
 
@@ -64,5 +83,10 @@ public class PlaceBuilding : MonoBehaviour
             buildingClone.GetComponent<Collider>().enabled = false; 
             isSelectedBuilding = true; 
         } 
+    }
+
+    public void RemoveBuildings() 
+    { 
+        isRemovingBuilding = !isRemovingBuilding;
     }
 }

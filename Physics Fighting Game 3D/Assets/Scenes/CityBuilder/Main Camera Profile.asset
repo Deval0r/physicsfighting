@@ -15,7 +15,7 @@ MonoBehaviour:
   active: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.26
+    m_Value: 0.349
   xMultiplier:
     m_OverrideState: 1
     m_Value: 1
@@ -102,8 +102,8 @@ MonoBehaviour:
   components:
   - {fileID: -4886914322029323021}
   - {fileID: 4703910591454521317}
-  - {fileID: -8711655566981584962}
   - {fileID: -1213150379427941652}
+  - {fileID: -8711655566981584962}
   - {fileID: 1964946100350802200}
 --- !u!114 &1964946100350802200
 MonoBehaviour:
