@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using UnityEngine;
 
 public class PlaceBuilding : MonoBehaviour
@@ -10,6 +11,7 @@ public class PlaceBuilding : MonoBehaviour
     private bool isSelectedBuilding; 
     private bool isRemovingBuilding;
     public int buildingCount;
+    private MeshRenderer removedBuildingMeshRenderer;
 
     public AudioSource soundSource; // AudioSource to play the sound
     public AudioClip triggerSound;
@@ -54,22 +56,26 @@ public class PlaceBuilding : MonoBehaviour
                 buildingClone = null; 
                 isSelectedBuilding = false;
             }
-            if (isRemovingBuilding && Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hitInfo2))
+        }
+        if (isRemovingBuilding && Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hitInfo2))
+        {
+            if (hitInfo2.collider.gameObject.tag == "Building")
             {
-                    // Check if the object hit by the raycast is tagged as "Building"
-                if (hitInfo2.collider.gameObject.tag == "Building") 
+                if (removedBuildingMeshRenderer != null && removedBuildingMeshRenderer != hitInfo2.collider.gameObject.GetComponent<MeshRenderer>())
                 {
-                    // Change the color of the building to red (for visual feedback)
-                    MeshRenderer meshRenderer = hitInfo2.collider.gameObject.GetComponent<MeshRenderer>();
-                    if (meshRenderer != null)
-                    {
-                        meshRenderer.material.color = Color.red;
-                    }
-
-                    // Destroy the building and decrement the building count
-                    //Destroy(hitInfo2.collider.gameObject); 
-                    //buildingCount--;
+                    removedBuildingMeshRenderer.material.color = Color.white;
                 }
+                removedBuildingMeshRenderer = hitInfo2.collider.gameObject.GetComponent<MeshRenderer>();
+                removedBuildingMeshRenderer.material.color = Color.yellow;
+                if (Input.GetMouseButtonDown(0) && !isSelectedBuilding)
+                {
+                    gameManager.money += 250;
+                    Destroy(hitInfo2.collider.gameObject);
+                    buildingCount--;
+                } 
+            } else if (removedBuildingMeshRenderer != null)
+            {
+                removedBuildingMeshRenderer.material.color = Color.white;
             }
         }
     }
