@@ -98593,73 +98593,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 732126278}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca6c4a2ae5b653d4da56baa3a520f389, type: 3}
+  m_Script: {fileID: 11500000, guid: a1dfd46b5939241be9395442a5ef8dd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeSettings:
-    fadeValue: 0
-    enableOnStart: 0
-    constantShake: 0
-    fadeInDuration: 2
-    fadeInCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 2
-        outSlope: 2
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    holdDuration: 4
-    fadeOutDuration: 1
-    fadeOutCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-  preset: {fileID: 0}
-  positionShake:
-    noiseType: 0
-    amplitude: {x: 0.5, y: 0.5, z: 0.5}
-    frequency: {x: 10, y: 10, z: 10}
-  rotationShake:
-    noiseType: 0
-    amplitude: {x: 0, y: 0, z: 0}
-    frequency: {x: 0, y: 0, z: 0}
+  shakeDuration: 8
+  shakeIntensity: 0.5
+  growthMethod: sine
 --- !u!4 &732432322 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8260414767725919869, guid: 866a9b4251af6a742b767b11667a58bd, type: 3}
@@ -246946,6 +246885,8 @@ GameObject:
   - component: {fileID: 1872794530}
   - component: {fileID: 1872794529}
   - component: {fileID: 1872794528}
+  - component: {fileID: 1872794535}
+  - component: {fileID: 1872794534}
   m_Layer: 0
   m_Name: NUKETRIGGERAREA
   m_TagString: NUKETRIGGEROBJ
@@ -247066,6 +247007,9 @@ MonoBehaviour:
   nukeSpawnLocation: {fileID: 326741701}
   soundSource: {fileID: 1872794528}
   triggerSound: {fileID: 8300000, guid: fa4ccc20dfdef5b41b8963c56e8d507d, type: 3}
+  cameraShake: {fileID: 732126285}
+  skyboxShake: {fileID: 0}
+  skyboxColorPulse: {fileID: 0}
 --- !u!65 &1872794530
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -247155,6 +247099,65 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1872794534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872794527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3028c04e5f4e0492aad8c6fa70a712cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeDuration: 8
+  shakeIntensity: 4
+--- !u!114 &1872794535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872794527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c0ec7c2b44b24fee98bed808125a247, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorGradient:
+    serializedVersion: 2
+    key0: {r: 0.0141509175, g: 0.83875555, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 1, g: 0, b: 0, a: 1}
+    key3: {r: 1, g: 1, b: 1, a: 0}
+    key4: {r: 1, g: 0, b: 0, a: 0}
+    key5: {r: 1, g: 1, b: 1, a: 0}
+    key6: {r: 1, g: 0, b: 0, a: 0}
+    key7: {r: 0.05179778, g: 0.11320752, b: 0.060321257, a: 0}
+    ctime0: 839
+    ctime1: 5397
+    ctime2: 11180
+    ctime3: 21010
+    ctime4: 25058
+    ctime5: 33346
+    ctime6: 43947
+    ctime7: 62644
+    atime0: 0
+    atime1: 19082
+    atime2: 65535
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 8
+    m_NumAlphaKeys: 3
+  initialTintColor: {r: 0, g: 0.87810826, b: 1, a: 0.3137255}
+  tintStrength: 0.5
+  duration: 9
 --- !u!4 &1872924915 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8260414767725919869, guid: 866a9b4251af6a742b767b11667a58bd, type: 3}
