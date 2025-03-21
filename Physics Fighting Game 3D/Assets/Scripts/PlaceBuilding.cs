@@ -8,8 +8,8 @@ public class PlaceBuilding : MonoBehaviour
     private int buildingIndex;
     public GameManager gameManager;
     private GameObject buildingClone; 
-    private bool isSelectedBuilding; 
-    private bool isRemovingBuilding;
+    public bool isSelectedBuilding; 
+    public bool isRemovingBuilding;
     public int buildingCount;
     private MeshRenderer removedBuildingMeshRenderer;
 
@@ -23,7 +23,7 @@ public class PlaceBuilding : MonoBehaviour
     }
     void Update()
     {
-        print(isRemovingBuilding);
+        print(isSelectedBuilding);
         if (isSelectedBuilding && buildingClone != null) 
         {
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
@@ -52,9 +52,9 @@ public class PlaceBuilding : MonoBehaviour
             }
             if (Input.GetMouseButtonDown(0) && gameManager.money < 500) 
             {
-                Destroy(buildingClone); 
+                buildingClone.GetComponent<MeshRenderer>().material.color = Color.yellow;
+                Destroy(buildingClone, 0.1f);
                 buildingClone = null; 
-                isSelectedBuilding = false;
             }
         }
         if (isRemovingBuilding && Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hitInfo2))
@@ -66,7 +66,7 @@ public class PlaceBuilding : MonoBehaviour
                     removedBuildingMeshRenderer.material.color = Color.white;
                 }
                 removedBuildingMeshRenderer = hitInfo2.collider.gameObject.GetComponent<MeshRenderer>();
-                removedBuildingMeshRenderer.material.color = Color.yellow;
+                removedBuildingMeshRenderer.material.color = Color.red;
                 if (Input.GetMouseButtonDown(0) && !isSelectedBuilding)
                 {
                     gameManager.money += 250;
