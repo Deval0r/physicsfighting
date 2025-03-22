@@ -17,6 +17,6 @@ public class PlayButton : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("CityBuilder");
+        SceneManager.LoadScene("FullGame");
     }
 }
