@@ -46,9 +46,17 @@ public class PlaceBuilding : MonoBehaviour
                 placedBuilding.GetComponent<Collider>().enabled = true;
                 Destroy(buildingClone); 
                 buildingClone = null; 
-                isSelectedBuilding = false;
                 buildingCount++;
                 gameManager.money -= 500;
+                if (gameManager.money >= 500)
+                {
+                    buildingClone = Instantiate(buildingPrefab); 
+                    buildingClone.GetComponent<MeshRenderer>().material.color = Color.blue; 
+                    buildingClone.GetComponent<Collider>().enabled = false; 
+                } else 
+                {
+                    isSelectedBuilding = false;
+                }
             }
             if (Input.GetMouseButtonDown(0) && gameManager.money < 500) 
             {
@@ -82,13 +90,22 @@ public class PlaceBuilding : MonoBehaviour
 
     public void PlaceBuildings() 
     { 
-        if (buildingClone == null) 
-        { 
-            buildingClone = Instantiate(buildingPrefab); 
-            buildingClone.GetComponent<MeshRenderer>().material.color = Color.blue; 
-            buildingClone.GetComponent<Collider>().enabled = false; 
-            isSelectedBuilding = true; 
-        } 
+        isSelectedBuilding = !isSelectedBuilding;
+        if (isSelectedBuilding) 
+        {
+            if (buildingClone == null) 
+            { 
+                buildingClone = Instantiate(buildingPrefab); 
+                buildingClone.GetComponent<MeshRenderer>().material.color = Color.blue; 
+                buildingClone.GetComponent<Collider>().enabled = false; 
+                isSelectedBuilding = true; 
+            } 
+            else
+            {
+                Destroy(buildingClone); 
+                buildingClone = null;
+            }
+        }
     }
 
     public void RemoveBuildings() 
