@@ -1,33 +1,43 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using UnityEngine.EventSystems; // Add this for UI interaction checks
 
 public class PlaceBuilding : MonoBehaviour
 {
+    public BuildingData[] buildings;  // Replace buildingPrefabs and buildingCosts arrays
     private Vector3 buildingPosition;
-    public GameObject[] buildingPrefabs;  // Array of building prefabs
-    public int[] buildingCosts;          // Array of building costs (set in the Inspector)
-    public Image[] hotbarSlots;          // Array of images representing hotbar slots
-    private int selectedBuildingIndex;   // Current index of the selected building
-    public GameManager gameManager;      // Reference to GameManager
+    public Image[] hotbarSlots;
+    private int selectedBuildingIndex;
+    public GameManager gameManager;
     private GameObject buildingClone;
     public bool isSelectedBuilding;
     public bool isRemovingBuilding;
     public int buildingCount;
     private MeshRenderer removedBuildingMeshRenderer;
 
-    public AudioSource soundSource;      // AudioSource to play the sound
+    public AudioSource soundSource;
     public AudioClip triggerSound;
     [SerializeField] private int scaleFactor;
+
+    public TextMeshProUGUI placeButtonText;    // Reference to place button text
+    public TextMeshProUGUI removeButtonText;   // Reference to remove button text
+
+    public int bankCount; // Add this to track number of banks specifically
+    public int batteryCount; // Add this to track number of batteries
 
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
         UpdateHotbarHighlight(); // Initialize hotbar highlighting
+        UpdateButtonTexts(); // Initialize button texts
     }
 
     void Update()
     {
-        HandleHotbarInput(); // Check for hotbar key input
+        HandleHotbarInput();
+        
+        // Only show preview if we have a valid building selected
         if (isSelectedBuilding && buildingClone != null)
         {
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
@@ -49,24 +59,38 @@ public class PlaceBuilding : MonoBehaviour
                 }
             }
 
-            if (Input.GetMouseButtonDown(0) &&
-                gameManager.money >= buildingCosts[selectedBuildingIndex] &&
+            // Add UI check before processing building placement
+            if (Input.GetMouseButtonDown(0) && !IsPointerOverUI() &&
+                gameManager.money >= buildings[selectedBuildingIndex].placeCost &&
                 Physics.Raycast(buildingClone.transform.position, Vector3.down, out RaycastHit hitInfo, 1))
             {
                 GameObject placedBuilding = Instantiate(
-                    buildingPrefabs[selectedBuildingIndex],
+                    buildings[selectedBuildingIndex].buildingPrefab,
                     buildingClone.transform.position,
                     buildingClone.transform.rotation
                 );
+                
+                // Update counts based on building type
+                if (buildings[selectedBuildingIndex].buildingName.ToLower() == "bank")
+                {
+                    bankCount++;
+                    gameManager.UpdateMaxMoney(bankCount * 1500);
+                }
+                else if (buildings[selectedBuildingIndex].buildingName.ToLower() == "battery")
+                {
+                    batteryCount++;
+                    gameManager.UpdateMaxPower(batteryCount * 1000);
+                }
+
                 soundSource.PlayOneShot(triggerSound);
                 placedBuilding.GetComponent<Collider>().enabled = true;
                 Destroy(buildingClone);
                 buildingClone = null;
                 buildingCount++;
-                gameManager.money -= buildingCosts[selectedBuildingIndex];
-                if (gameManager.money >= buildingCosts[selectedBuildingIndex])
+                gameManager.money -= buildings[selectedBuildingIndex].placeCost;
+                if (gameManager.money >= buildings[selectedBuildingIndex].placeCost)
                 {
-                    buildingClone = Instantiate(buildingPrefabs[selectedBuildingIndex]);
+                    buildingClone = Instantiate(buildings[selectedBuildingIndex].buildingPrefab);
                     buildingClone.GetComponent<MeshRenderer>().material.color = Color.blue;
                     buildingClone.GetComponent<Collider>().enabled = false;
                 }
@@ -75,12 +99,18 @@ public class PlaceBuilding : MonoBehaviour
                     isSelectedBuilding = false;
                 }
             }
-            else if (Input.GetMouseButtonDown(0) && gameManager.money < buildingCosts[selectedBuildingIndex])
+            else if (Input.GetMouseButtonDown(0) && !IsPointerOverUI() && gameManager.money < buildings[selectedBuildingIndex].placeCost)
             {
                 buildingClone.GetComponent<MeshRenderer>().material.color = Color.yellow;
                 Destroy(buildingClone, 0.1f);
                 buildingClone = null;
             }
+        }
+        else if (buildingClone != null)
+        {
+            // Clean up any orphaned preview
+            Destroy(buildingClone);
+            buildingClone = null;
         }
 
         if (isRemovingBuilding && Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hitInfo2))
@@ -93,9 +123,29 @@ public class PlaceBuilding : MonoBehaviour
                 }
                 removedBuildingMeshRenderer = hitInfo2.collider.gameObject.GetComponent<MeshRenderer>();
                 removedBuildingMeshRenderer.material.color = Color.red;
-                if (Input.GetMouseButtonDown(0) && !isSelectedBuilding)
+                UpdateButtonTexts();
+                
+                // Add UI check before processing building removal
+                if (Input.GetMouseButtonDown(0) && !IsPointerOverUI() && !isSelectedBuilding)
                 {
-                    gameManager.money += 250; // Refund half the cost
+                    foreach (BuildingData building in buildings)
+                    {
+                        if (hitInfo2.collider.gameObject.name.ToLower().Contains(building.buildingName.ToLower()))
+                        {
+                            if (building.buildingName.ToLower() == "bank")
+                            {
+                                bankCount--;
+                                gameManager.UpdateMaxMoney(bankCount * 1500);
+                            }
+                            else if (building.buildingName.ToLower() == "battery")
+                            {
+                                batteryCount--;
+                                gameManager.UpdateMaxPower(batteryCount * 1000);
+                            }
+                            gameManager.money += building.removeCost;
+                            break;
+                        }
+                    }
                     Destroy(hitInfo2.collider.gameObject);
                     buildingCount--;
                 }
@@ -103,6 +153,7 @@ public class PlaceBuilding : MonoBehaviour
             else if (removedBuildingMeshRenderer != null)
             {
                 removedBuildingMeshRenderer.material.color = Color.white;
+                UpdateButtonTexts();
             }
         }
     }
@@ -119,12 +170,26 @@ public class PlaceBuilding : MonoBehaviour
 
     void SelectBuilding(int index)
     {
-        if (index >= 0 && index < buildingPrefabs.Length)
+        if (index >= 0 && index < buildings.Length)
         {
-            selectedBuildingIndex = index; // Update selected index
-            UpdateHotbarHighlight(); // Update the hotbar UI
-            PlaceBuildings(); // Begin placing the new building
-            Debug.Log($"Selected building index: {selectedBuildingIndex}, Cost: {buildingCosts[selectedBuildingIndex]}");
+            // Destroy existing preview if it exists
+            if (buildingClone != null)
+            {
+                Destroy(buildingClone);
+                buildingClone = null;
+            }
+
+            selectedBuildingIndex = index;
+            UpdateHotbarHighlight();
+            
+            // Create new preview
+            buildingClone = Instantiate(buildings[selectedBuildingIndex].buildingPrefab);
+            buildingClone.GetComponent<MeshRenderer>().material.color = Color.blue;
+            buildingClone.GetComponent<Collider>().enabled = false;
+            
+            isSelectedBuilding = true;
+            UpdateButtonTexts(); // Update texts when selecting new building
+            Debug.Log($"Selected building: {buildings[selectedBuildingIndex].buildingName}, Cost: {buildings[selectedBuildingIndex].placeCost}");
         }
     }
 
@@ -143,24 +208,90 @@ public class PlaceBuilding : MonoBehaviour
         }
     }
 
+    void UpdateButtonTexts()
+    {
+        if (placeButtonText != null)
+        {
+            placeButtonText.text = $"Place: -{buildings[selectedBuildingIndex].placeCost}";
+        }
+
+        if (removeButtonText != null)
+        {
+            if (isRemovingBuilding && removedBuildingMeshRenderer != null)
+            {
+                foreach (BuildingData building in buildings)
+                {
+                    // Check if the object name contains the building name (case insensitive)
+                    if (removedBuildingMeshRenderer.gameObject.name.ToLower().Contains(building.buildingName.ToLower()))
+                    {
+                        removeButtonText.text = $"Remove: +{building.removeCost}";
+                        Debug.Log($"Highlighting {building.buildingName} for removal");
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                removeButtonText.text = "Remove: +0";
+            }
+        }
+    }
+
     public void PlaceBuildings()
     {
-        isSelectedBuilding = true;
-        if (buildingClone == null)
+        // If already in build mode, turn it off
+        if (isSelectedBuilding)
         {
-            buildingClone = Instantiate(buildingPrefabs[selectedBuildingIndex]);
-            buildingClone.GetComponent<MeshRenderer>().material.color = Color.blue;
-            buildingClone.GetComponent<Collider>().enabled = false;
+            isSelectedBuilding = false;
+            if (buildingClone != null)
+            {
+                Destroy(buildingClone);
+                buildingClone = null;
+            }
         }
         else
         {
-            Destroy(buildingClone);
-            buildingClone = null;
+            // Switch to build mode
+            isRemovingBuilding = false;
+            isSelectedBuilding = true;
+            
+            // Create new preview
+            buildingClone = Instantiate(buildings[selectedBuildingIndex].buildingPrefab);
+            buildingClone.GetComponent<MeshRenderer>().material.color = Color.blue;
+            buildingClone.GetComponent<Collider>().enabled = false;
         }
+        
+        UpdateButtonTexts();
     }
 
     public void RemoveBuildings()
     {
+        // Toggle remove mode
         isRemovingBuilding = !isRemovingBuilding;
+        
+        // If switching to remove mode, ensure build mode is off
+        if (isRemovingBuilding)
+        {
+            isSelectedBuilding = false;
+            if (buildingClone != null)
+            {
+                Destroy(buildingClone);
+                buildingClone = null;
+            }
+        }
+        
+        // Reset any highlighted building color when toggling off
+        if (!isRemovingBuilding && removedBuildingMeshRenderer != null)
+        {
+            removedBuildingMeshRenderer.material.color = Color.white;
+            removedBuildingMeshRenderer = null;
+        }
+        
+        UpdateButtonTexts();
+    }
+
+    private bool IsPointerOverUI()
+    {
+        return EventSystem.current.IsPointerOverGameObject();
     }
 }

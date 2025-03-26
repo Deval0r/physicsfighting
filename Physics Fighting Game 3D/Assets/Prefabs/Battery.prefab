@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 1216664054721937899}
   - component: {fileID: 5927253081832994785}
   m_Layer: 0
-  m_Name: SM_SciFi_Weapons_03
-  m_TagString: Untagged
+  m_Name: Battery
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
