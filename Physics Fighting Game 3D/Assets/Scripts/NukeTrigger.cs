@@ -9,6 +9,7 @@ public class NukeTrigger : MonoBehaviour
     public CameraShake cameraShake; // Reference to the CameraShake script
     public SkyboxShake skyboxShake; // Reference to the SkyboxShake script
     public SkyboxColorPulse skyboxColorPulse; // Reference to the SkyboxColorPulse script
+    public GameObject objectToHide; // Add this new variable
 
     private bool hasTriggered = false; // Ensures the event only happens once
 
@@ -30,6 +31,12 @@ public class NukeTrigger : MonoBehaviour
         {
             skyboxColorPulse = FindObjectOfType<SkyboxColorPulse>();
         }
+
+        // Deactivate the specified object at start
+        if (objectToHide != null)
+        {
+            objectToHide.SetActive(false);
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -39,6 +46,12 @@ public class NukeTrigger : MonoBehaviour
         {
             Debug.Log("Player has triggered the event!"); // Debug log
             hasTriggered = true;
+
+            // Activate the specified object when triggered
+            if (objectToHide != null)
+            {
+                objectToHide.SetActive(true);
+            }
 
             // Play the specified sound
             if (soundSource != null && triggerSound != null)
