@@ -245445,6 +245445,7 @@ MonoBehaviour:
   cameraShake: {fileID: 732126284}
   skyboxShake: {fileID: 0}
   skyboxColorPulse: {fileID: 0}
+  objectToHide: {fileID: 1274548372}
 --- !u!65 &1872794530
 BoxCollider:
   m_ObjectHideFlags: 0
