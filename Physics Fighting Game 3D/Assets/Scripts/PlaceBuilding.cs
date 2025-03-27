@@ -26,6 +26,9 @@ public class PlaceBuilding : MonoBehaviour
     public int bankCount; // Add this to track number of banks specifically
     public int batteryCount; // Add this to track number of batteries
 
+    public Image placeButtonImage;    // Reference to place button image
+    public Image removeButtonImage;   // Reference to remove button image
+
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -79,6 +82,7 @@ public class PlaceBuilding : MonoBehaviour
                 else if (buildings[selectedBuildingIndex].buildingName.ToLower() == "battery")
                 {
                     batteryCount++;
+                    Debug.Log($"Battery placed. New count: {batteryCount}, New max power: {batteryCount * 1000}");
                     gameManager.UpdateMaxPower(batteryCount * 1000);
                 }
 
@@ -221,7 +225,6 @@ public class PlaceBuilding : MonoBehaviour
             {
                 foreach (BuildingData building in buildings)
                 {
-                    // Check if the object name contains the building name (case insensitive)
                     if (removedBuildingMeshRenderer.gameObject.name.ToLower().Contains(building.buildingName.ToLower()))
                     {
                         removeButtonText.text = $"Remove: +{building.removeCost}";
@@ -234,6 +237,16 @@ public class PlaceBuilding : MonoBehaviour
             {
                 removeButtonText.text = "Remove: +0";
             }
+        }
+
+        // Update button colors
+        if (placeButtonImage != null)
+        {
+            placeButtonImage.color = isSelectedBuilding ? Color.blue : Color.white;
+        }
+        if (removeButtonImage != null)
+        {
+            removeButtonImage.color = isRemovingBuilding ? Color.red : Color.white;
         }
     }
 

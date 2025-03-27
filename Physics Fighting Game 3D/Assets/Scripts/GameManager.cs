@@ -78,5 +78,6 @@ public class GameManager : MonoBehaviour
     {
         maxPower = Mathf.Max(1000, newMax); // Minimum of 1000
         power = Mathf.Min(power, maxPower); // Cap current power if needed
+        Debug.Log($"Max power updated to: {maxPower}"); // Add debug log to verify
     }
 }

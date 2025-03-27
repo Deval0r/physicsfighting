@@ -187840,6 +187840,8 @@ MonoBehaviour:
   removeButtonText: {fileID: 284344779}
   bankCount: 0
   batteryCount: 0
+  placeButtonImage: {fileID: 1142607062}
+  removeButtonImage: {fileID: 185410084}
 --- !u!4 &1406377996
 Transform:
   m_ObjectHideFlags: 0
