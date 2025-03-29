@@ -88,6 +88,8 @@ public class PlaceBuilding : MonoBehaviour
 
                 soundSource.PlayOneShot(triggerSound);
                 placedBuilding.GetComponent<Collider>().enabled = true;
+<<<<<<< HEAD
+<<<<<<< HEAD
                 Destroy(buildingClone);
                 buildingClone = null;
                 buildingCount++;
@@ -102,6 +104,20 @@ public class PlaceBuilding : MonoBehaviour
                 {
                     isSelectedBuilding = false;
                 }
+=======
+                Destroy(buildingClone); 
+                buildingClone = null; 
+                isSelectedBuilding = false;
+                buildingCount++;
+                gameManager.money -= 500;
+>>>>>>> parent of 5a60f35 (Stay selected buildings)
+=======
+                Destroy(buildingClone); 
+                buildingClone = null; 
+                isSelectedBuilding = false;
+                buildingCount++;
+                gameManager.money -= 500;
+>>>>>>> parent of 5a60f35 (Stay selected buildings)
             }
             else if (Input.GetMouseButtonDown(0) && !IsPointerOverUI() && gameManager.money < buildings[selectedBuildingIndex].placeCost)
             {
@@ -162,6 +178,8 @@ public class PlaceBuilding : MonoBehaviour
         }
     }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
     void HandleHotbarInput()
     {
         // Check for keys 1-5 to select a building
@@ -275,6 +293,22 @@ public class PlaceBuilding : MonoBehaviour
         }
         
         UpdateButtonTexts();
+=======
+=======
+>>>>>>> parent of 5a60f35 (Stay selected buildings)
+    public void PlaceBuildings() 
+    { 
+        if (buildingClone == null) 
+        { 
+            buildingClone = Instantiate(buildingPrefab); 
+            buildingClone.GetComponent<MeshRenderer>().material.color = Color.blue; 
+            buildingClone.GetComponent<Collider>().enabled = false; 
+            isSelectedBuilding = true; 
+        } 
+<<<<<<< HEAD
+>>>>>>> parent of 5a60f35 (Stay selected buildings)
+=======
+>>>>>>> parent of 5a60f35 (Stay selected buildings)
     }
 
     public void RemoveBuildings()
