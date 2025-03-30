@@ -13,6 +13,8 @@ public class PlaceBuilding : MonoBehaviour
     public int buildingCount;
     private MeshRenderer removedBuildingMeshRenderer;
 
+    public GameObject[] buildingPrefabs;
+
     public AudioSource soundSource; // AudioSource to play the sound
     public AudioClip triggerSound;
     [SerializeField] private int scaleFactor;
@@ -23,7 +25,14 @@ public class PlaceBuilding : MonoBehaviour
     }
     void Update()
     {
-        print(isSelectedBuilding);
+        if (Input.GetKeyDown(KeyCode.Alpha1)) 
+        {
+            buildingIndex = 0; 
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2)) 
+        {
+            buildingIndex = 1; 
+        }
         if (isSelectedBuilding && buildingClone != null) 
         {
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
@@ -41,7 +50,7 @@ public class PlaceBuilding : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0) && gameManager.money >= 500 && Physics.Raycast(buildingClone.transform.position, Vector3.down, out RaycastHit hitInfo, 1)) 
             {
-                GameObject placedBuilding = Instantiate(buildingPrefab, buildingClone.transform.position, buildingClone.transform.rotation); 
+                GameObject placedBuilding = Instantiate(buildingPrefabs[buildingIndex], buildingClone.transform.position, buildingClone.transform.rotation); 
                 soundSource.PlayOneShot(triggerSound);
                 placedBuilding.GetComponent<Collider>().enabled = true;
                 Destroy(buildingClone); 
@@ -50,7 +59,7 @@ public class PlaceBuilding : MonoBehaviour
                 gameManager.money -= 500;
                 if (gameManager.money >= 500)
                 {
-                    buildingClone = Instantiate(buildingPrefab); 
+                    buildingClone = Instantiate(buildingPrefabs[buildingIndex]); 
                     buildingClone.GetComponent<MeshRenderer>().material.color = Color.blue; 
                     buildingClone.GetComponent<Collider>().enabled = false; 
                 } else 
@@ -95,7 +104,7 @@ public class PlaceBuilding : MonoBehaviour
         {
             if (buildingClone == null) 
             { 
-                buildingClone = Instantiate(buildingPrefab); 
+                buildingClone = Instantiate(buildingPrefabs[buildingIndex]); 
                 buildingClone.GetComponent<MeshRenderer>().material.color = Color.blue; 
                 buildingClone.GetComponent<Collider>().enabled = false; 
                 isSelectedBuilding = true; 
