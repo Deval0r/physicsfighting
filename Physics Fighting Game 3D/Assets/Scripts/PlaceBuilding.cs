@@ -4,13 +4,14 @@ using UnityEngine;
 public class PlaceBuilding : MonoBehaviour
 {
     private Vector3 buildingPosition; 
-    private int buildingIndex;
+    public int buildingIndex;
     public GameManager gameManager;
     private GameObject buildingClone; 
     public bool isSelectedBuilding; 
     public bool isRemovingBuilding;
     public int factoryCount;
     public int batteryCount;
+    public int bankCount;
     private MeshRenderer removedBuildingMeshRenderer;
 
     public GameObject[] buildingPrefabs;
@@ -32,6 +33,10 @@ public class PlaceBuilding : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha2)) 
         {
             buildingIndex = 1; 
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3)) 
+        {
+            buildingIndex = 2; 
         }
         if (isSelectedBuilding && buildingClone != null) 
         {
@@ -62,6 +67,10 @@ public class PlaceBuilding : MonoBehaviour
                 else if (buildingIndex == 1)
                 {
                     batteryCount++;
+                }
+                else if (buildingIndex == 2)
+                {
+                    bankCount++;
                 }
                 gameManager.money -= 500;
                 if (gameManager.money >= 500)
@@ -102,6 +111,10 @@ public class PlaceBuilding : MonoBehaviour
                     else if (buildingIndex == 1)
                     {
                         batteryCount--;
+                    }
+                    else if (buildingIndex == 2)
+                    {
+                        bankCount--;
                     }
                 } 
             } else if (removedBuildingMeshRenderer != null)
