@@ -22,12 +22,12 @@ public class GameManager : MonoBehaviour
         Cooldown -= Time.deltaTime;
         if (Cooldown <= 0)
         {
-            money += placeBuilding.buildingCount * 10;
-            power -= placeBuilding.buildingCount * 5;
+            money += placeBuilding.factoryCount * 10;
+            power -= placeBuilding.factoryCount * 5;
             if (power < 0)
             {
                 power = 0;
-                money -= placeBuilding.buildingCount * 20;
+                money -= placeBuilding.factoryCount * 20;
             }
 
             Cooldown = 3f;

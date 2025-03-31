@@ -9,7 +9,8 @@ public class PlaceBuilding : MonoBehaviour
     private GameObject buildingClone; 
     public bool isSelectedBuilding; 
     public bool isRemovingBuilding;
-    public int buildingCount;
+    public int factoryCount;
+    public int batteryCount;
     private MeshRenderer removedBuildingMeshRenderer;
 
     public GameObject[] buildingPrefabs;
@@ -41,7 +42,7 @@ public class PlaceBuilding : MonoBehaviour
                 {
                     buildingClone.transform.Rotate(0, 90, 0);
                 }
-                if (Input.GetKeyDown(KeyCode.Q)) 
+                if (Input.GetKeyDown(KeyCode.Q))
                 {
                     buildingClone.transform.Rotate(0, -90, 0);
                 }
@@ -54,7 +55,14 @@ public class PlaceBuilding : MonoBehaviour
                 placedBuilding.GetComponent<Collider>().enabled = true;
                 Destroy(buildingClone); 
                 buildingClone = null; 
-                buildingCount++;
+                if (buildingIndex == 0)
+                {
+                    factoryCount++;
+                }
+                else if (buildingIndex == 1)
+                {
+                    batteryCount++;
+                }
                 gameManager.money -= 500;
                 if (gameManager.money >= 500)
                 {
@@ -70,7 +78,7 @@ public class PlaceBuilding : MonoBehaviour
             {
                 buildingClone.GetComponent<MeshRenderer>().material.color = Color.yellow;
                 Destroy(buildingClone, 0.1f);
-                buildingClone = null; 
+                buildingClone = null;
             }
         }
         if (isRemovingBuilding && Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hitInfo2))
@@ -87,7 +95,14 @@ public class PlaceBuilding : MonoBehaviour
                 {
                     gameManager.money += 250;
                     Destroy(hitInfo2.collider.gameObject);
-                    buildingCount--;
+                    if (buildingIndex == 0)
+                    {
+                        factoryCount--;
+                    }
+                    else if (buildingIndex == 1)
+                    {
+                        batteryCount--;
+                    }
                 } 
             } else if (removedBuildingMeshRenderer != null)
             {
