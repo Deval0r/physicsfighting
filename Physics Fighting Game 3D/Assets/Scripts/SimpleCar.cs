@@ -12,6 +12,9 @@ public class SimpleCar : MonoBehaviour
 
     private Rigidbody rb; // Reference to the Rigidbody component
 
+    private float elapsedTime = 0f; // Tracks time since the game started
+    private bool allowSkyboxChangeDetection = false; // Flag for skybox change detection
+
     void Start()
     {
         // Save the car's starting position
@@ -36,8 +39,18 @@ public class SimpleCar : MonoBehaviour
 
     void Update()
     {
-        // Check if the skybox color has changed
-        if (skyboxMaterial != null && skyboxMaterial.HasProperty("_Tint"))
+        // Update the elapsed time
+        elapsedTime += Time.deltaTime;
+
+        // Allow skybox change detection only after 10 seconds
+        if (!allowSkyboxChangeDetection && elapsedTime >= 10f)
+        {
+            allowSkyboxChangeDetection = true;
+            Debug.Log("Skybox change detection enabled after 10 seconds.");
+        }
+
+        // Check if the skybox color has changed, but only if detection is enabled
+        if (allowSkyboxChangeDetection && skyboxMaterial != null && skyboxMaterial.HasProperty("_Tint"))
         {
             Color currentColor = skyboxMaterial.GetColor("_Tint");
             if (currentColor != lastSkyboxColor)
