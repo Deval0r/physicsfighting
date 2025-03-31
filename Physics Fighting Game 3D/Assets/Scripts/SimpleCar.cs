@@ -1,0 +1,95 @@
+using UnityEngine;
+
+public class SimpleCar : MonoBehaviour
+{
+    public float speed = 5f; // Default starting speed of the car
+    public float travelDistance = 20f; // Distance the car will travel
+    private Vector3 startPosition; // Starting position of the car
+    private float traveled = 0f; // Tracks distance traveled
+
+    private Material skyboxMaterial; // Reference to the skybox material
+    private Color lastSkyboxColor; // Tracks the previous skybox color
+
+    private Rigidbody rb; // Reference to the Rigidbody component
+
+    void Start()
+    {
+        // Save the car's starting position
+        startPosition = transform.position;
+
+        // Get the skybox material
+        skyboxMaterial = RenderSettings.skybox;
+
+        // Save the initial skybox color if it has a _Tint property
+        if (skyboxMaterial.HasProperty("_Tint"))
+        {
+            lastSkyboxColor = skyboxMaterial.GetColor("_Tint");
+        }
+
+        // Get the Rigidbody component and ensure it is disabled initially
+        rb = GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.isKinematic = true; // Disable physics initially
+        }
+    }
+
+    void Update()
+    {
+        // Check if the skybox color has changed
+        if (skyboxMaterial != null && skyboxMaterial.HasProperty("_Tint"))
+        {
+            Color currentColor = skyboxMaterial.GetColor("_Tint");
+            if (currentColor != lastSkyboxColor)
+            {
+                // Skybox has changed - set speed to 150
+                speed = 150f;
+
+                // Update the last tracked color
+                lastSkyboxColor = currentColor;
+
+                Debug.Log("Skybox changed! Speed set to 150.");
+            }
+        }
+
+        // Move the car in the opposite direction of its forward vector
+        float step = speed * Time.deltaTime;
+        transform.position -= transform.forward * step; // Use negative forward direction
+        traveled += step;
+
+        // Teleport the car back to the starting position if it exceeds the travel distance
+        if (traveled >= travelDistance)
+        {
+            transform.position = startPosition;
+            traveled = 0f; // Reset traveled distance
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        // Check if the object collided has the "Player" tag and speed is 150
+        if (collision.collider.CompareTag("Player") && speed == 150f)
+        {
+            // Enable the Rigidbody component (enable physics)
+            if (rb != null)
+            {
+                rb.isKinematic = false; // Enable physics
+                Debug.Log("Rigidbody enabled after collision with Player!");
+            }
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        // Draw a line in the editor to represent the travel distance in the opposite direction
+        Gizmos.color = Color.red;
+        if (!Application.isPlaying) // Only draw the initial starting line in Edit mode
+        {
+            Gizmos.DrawLine(transform.position, transform.position - transform.forward * travelDistance);
+        }
+        else // In Play mode, reflect the initial starting point
+        {
+            Gizmos.DrawLine(startPosition, startPosition - transform.forward * travelDistance);
+        }
+    }
+}
