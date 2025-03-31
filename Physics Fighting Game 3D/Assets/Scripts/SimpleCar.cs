@@ -15,6 +15,9 @@ public class SimpleCar : MonoBehaviour
     private float elapsedTime = 0f; // Tracks time since the game started
     private bool allowSkyboxChangeDetection = false; // Flag for skybox change detection
 
+    public AudioSource engineSoundSource; // Reference to the AudioSource for the engine sound
+    public AudioClip engineSound; // Car engine sound clip
+
     void Start()
     {
         // Save the car's starting position
@@ -34,6 +37,15 @@ public class SimpleCar : MonoBehaviour
         if (rb != null)
         {
             rb.isKinematic = true; // Disable physics initially
+        }
+
+        // Set up the AudioSource for the engine sound
+        if (engineSoundSource != null && engineSound != null)
+        {
+            engineSoundSource.clip = engineSound;
+            engineSoundSource.loop = true; // Loop the engine sound
+            engineSoundSource.spatialBlend = 1.0f; // Enable 3D sound
+            engineSoundSource.Play(); // Start playing the engine sound
         }
     }
 
@@ -75,6 +87,12 @@ public class SimpleCar : MonoBehaviour
         {
             transform.position = startPosition;
             traveled = 0f; // Reset traveled distance
+        }
+
+        // Adjust engine sound pitch based on speed
+        if (engineSoundSource != null)
+        {
+            engineSoundSource.pitch = Mathf.Clamp(speed / 50f, 0.5f, 2f); // Scale pitch by speed
         }
     }
 
