@@ -13,6 +13,6 @@ public class PowerScript : MonoBehaviour
     }
     void Update()
     {
-        powerText.text = "Power: " + gameManager.power + "W";
+        powerText.text = "Power: " + gameManager.power + "J";
     }
 }

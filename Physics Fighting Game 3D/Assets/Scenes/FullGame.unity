@@ -164456,6 +164456,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 866a9b4251af6a742b767b11667a58bd, type: 3}
+--- !u!1001 &1234080994
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1801484294960248, guid: 5c3dddb730597964f907baf90b45fc95, type: 3}
+      propertyPath: m_Name
+      value: Building_01_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4002537594865620, guid: 5c3dddb730597964f907baf90b45fc95, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.25052476
+      objectReference: {fileID: 0}
+    - target: {fileID: 4002537594865620, guid: 5c3dddb730597964f907baf90b45fc95, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.009998136
+      objectReference: {fileID: 0}
+    - target: {fileID: 4002537594865620, guid: 5c3dddb730597964f907baf90b45fc95, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 11.187242
+      objectReference: {fileID: 0}
+    - target: {fileID: 4002537594865620, guid: 5c3dddb730597964f907baf90b45fc95, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4002537594865620, guid: 5c3dddb730597964f907baf90b45fc95, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4002537594865620, guid: 5c3dddb730597964f907baf90b45fc95, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4002537594865620, guid: 5c3dddb730597964f907baf90b45fc95, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4002537594865620, guid: 5c3dddb730597964f907baf90b45fc95, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4002537594865620, guid: 5c3dddb730597964f907baf90b45fc95, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4002537594865620, guid: 5c3dddb730597964f907baf90b45fc95, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5c3dddb730597964f907baf90b45fc95, type: 3}
 --- !u!4 &1234208478 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8260414767725919869, guid: 866a9b4251af6a742b767b11667a58bd, type: 3}
@@ -187625,7 +187682,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffc7cc594496e1949ba40a3f3d8c7787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingPrefab: {fileID: 1801484294960248, guid: c3fc861d491ff2a4ead81ab33146571f, type: 3}
   gameManager: {fileID: 0}
   isSelectedBuilding: 0
   isRemovingBuilding: 0
@@ -279735,15 +279791,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4833130930993325460, guid: 4398896695f3fe74498b4c49baef07c1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.06477137
+      value: 6.08
       objectReference: {fileID: 0}
     - target: {fileID: 4833130930993325460, guid: 4398896695f3fe74498b4c49baef07c1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3
+      value: 1.66975
       objectReference: {fileID: 0}
     - target: {fileID: 4833130930993325460, guid: 4398896695f3fe74498b4c49baef07c1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 12.582696
+      value: 11.1
       objectReference: {fileID: 0}
     - target: {fileID: 4833130930993325460, guid: 4398896695f3fe74498b4c49baef07c1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -279777,6 +279833,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PowerPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 7734976231400474156, guid: 4398896695f3fe74498b4c49baef07c1, type: 3}
+      propertyPath: m_TagString
+      value: Building
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -279798,3 +279858,4 @@ SceneRoots:
   - {fileID: 488549349}
   - {fileID: 438452334}
   - {fileID: 5720367368419598160}
+  - {fileID: 1234080994}

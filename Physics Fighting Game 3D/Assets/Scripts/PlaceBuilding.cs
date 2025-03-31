@@ -4,7 +4,6 @@ using UnityEngine;
 public class PlaceBuilding : MonoBehaviour
 {
     private Vector3 buildingPosition; 
-    public GameObject buildingPrefab; 
     private int buildingIndex;
     public GameManager gameManager;
     private GameObject buildingClone; 
