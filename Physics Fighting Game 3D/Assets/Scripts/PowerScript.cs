@@ -24,6 +24,6 @@ public class PowerScript : MonoBehaviour
             gameManager.power = maxPower;
         }
 
-        powerText.text = "Power: " + gameManager.power + "J/" + maxPower + "J";
+        powerText.text = "Power: " + gameManager.power + "/" + maxPower + "J";
     }
 }
