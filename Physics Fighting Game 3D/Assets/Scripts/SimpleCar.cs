@@ -17,6 +17,7 @@ public class SimpleCar : MonoBehaviour
 
     public AudioSource engineSoundSource; // Reference to the AudioSource for the engine sound
     public AudioClip engineSound; // Car engine sound clip
+    [Range(0f, 5f)] public float engineVolume = 1f; // Volume control for the engine sound (0-5x boost)
 
     void Start()
     {
@@ -40,13 +41,25 @@ public class SimpleCar : MonoBehaviour
         }
 
         // Set up the AudioSource for the engine sound
-        if (engineSoundSource != null && engineSound != null)
+        if (engineSoundSource == null)
         {
-            engineSoundSource.clip = engineSound;
-            engineSoundSource.loop = true; // Loop the engine sound
-            engineSoundSource.spatialBlend = 1.0f; // Enable 3D sound
-            engineSoundSource.Play(); // Start playing the engine sound
+            Debug.LogError("Engine Sound Source is not assigned in the Inspector!");
+            return;
         }
+        
+        if (engineSound == null)
+        {
+            Debug.LogError("Engine Sound clip is not assigned in the Inspector!");
+            return;
+        }
+
+        engineSoundSource.clip = engineSound;
+        engineSoundSource.loop = true; // Loop the engine sound
+        engineSoundSource.spatialBlend = 1.0f; // Enable 3D sound
+        engineSoundSource.volume = engineVolume; // Set the initial volume
+        engineSoundSource.Play(); // Start playing the engine sound
+        
+        Debug.Log($"Engine sound initialized - Volume: {engineVolume}, Is Playing: {engineSoundSource.isPlaying}");
     }
 
     void Update()
