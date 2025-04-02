@@ -153101,6 +153101,7 @@ GameObject:
   - component: {fileID: 1142607063}
   - component: {fileID: 1142607062}
   - component: {fileID: 1142607061}
+  - component: {fileID: 1142607064}
   m_Layer: 5
   m_Name: Basic Building
   m_TagString: Untagged
@@ -153222,6 +153223,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1142607059}
   m_CullTransparentMesh: 1
+--- !u!114 &1142607064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1142607059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6b575f732d5c40f6845e143ab799ab0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMouseOverPlaceBuldingButton: 0
 --- !u!1001 &1143184844
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -187988,8 +188002,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffc7cc594496e1949ba40a3f3d8c7787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingIndex: 0
   gameManager: {fileID: 0}
+  placeBuildingButton: {fileID: 0}
+  buildingIndex: 0
   isSelectedBuilding: 0
   isRemovingBuilding: 0
   factoryCount: 0

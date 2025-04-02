@@ -1,11 +1,14 @@
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlaceBuilding : MonoBehaviour
 {
+    public GameManager gameManager;
+    public PlaceBuildingButton placeBuildingButton;
+
     private Vector3 buildingPosition; 
     public int buildingIndex;
-    public GameManager gameManager;
     private GameObject buildingClone; 
     public bool isSelectedBuilding; 
     public bool isRemovingBuilding;
@@ -13,16 +16,15 @@ public class PlaceBuilding : MonoBehaviour
     public int batteryCount;
     public int bankCount;
     private MeshRenderer removedBuildingMeshRenderer;
-
     public GameObject[] buildingPrefabs;
-
-    public AudioSource soundSource; // AudioSource to play the sound
+    public AudioSource soundSource;
     public AudioClip triggerSound;
     [SerializeField] private int scaleFactor;
 
     void Start() 
     {
         gameManager = FindObjectOfType<GameManager>();
+        placeBuildingButton = FindObjectOfType<PlaceBuildingButton>();
     }
     void Update()
     {
@@ -38,7 +40,7 @@ public class PlaceBuilding : MonoBehaviour
         {
             buildingIndex = 2; 
         }
-        if (isSelectedBuilding && buildingClone != null) 
+        if (isSelectedBuilding && buildingClone != null && !placeBuildingButton.isMouseOverPlaceBuldingButton) 
         {
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
             {
@@ -135,7 +137,7 @@ public class PlaceBuilding : MonoBehaviour
                 buildingClone.GetComponent<MeshRenderer>().material.color = Color.blue; 
                 buildingClone.GetComponent<Collider>().enabled = false; 
                 isSelectedBuilding = true; 
-            } 
+            }
             else
             {
                 Destroy(buildingClone); 

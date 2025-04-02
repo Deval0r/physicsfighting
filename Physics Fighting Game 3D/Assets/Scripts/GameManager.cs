@@ -5,7 +5,6 @@ public class GameManager : MonoBehaviour
     public int money;
     public int power;
     public PlaceBuilding placeBuilding;
-
     private float Cooldown;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
