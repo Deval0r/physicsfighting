@@ -4,6 +4,8 @@ public class MenuLight : MonoBehaviour
 {
     private Camera mainCamera;
     private Light directionalLight;
+    public float height = 10f; // Height of the light above the scene
+    public float smoothSpeed = 5f; // Speed at which the light moves to follow the mouse
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,12 +21,13 @@ public class MenuLight : MonoBehaviour
         Vector3 mousePos = Input.mousePosition;
         
         // Convert screen position to world position
-        Vector3 worldPos = mainCamera.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 10f));
+        Vector3 targetPos = mainCamera.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, height));
         
-        // Update light's position to match mouse
-        directionalLight.transform.position = worldPos;
+        // Smoothly move the light towards the target position
+        Vector3 newPosition = Vector3.Lerp(transform.position, new Vector3(targetPos.x, height, targetPos.z), Time.deltaTime * smoothSpeed);
+        transform.position = newPosition;
         
-        // Reset rotation to zero
-        transform.rotation = Quaternion.identity;
+        // Keep the light pointing downward
+        transform.rotation = Quaternion.Euler(90, 0, 0);
     }
 }
