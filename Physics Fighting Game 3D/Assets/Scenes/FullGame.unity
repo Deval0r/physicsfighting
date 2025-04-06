@@ -23079,7 +23079,7 @@ GameObject:
   - component: {fileID: 185410085}
   - component: {fileID: 185410084}
   - component: {fileID: 185410083}
-  - component: {fileID: 185410086}
+  - component: {fileID: 185410087}
   m_Layer: 5
   m_Name: Remove
   m_TagString: Untagged
@@ -23201,7 +23201,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 185410081}
   m_CullTransparentMesh: 1
---- !u!114 &185410086
+--- !u!114 &185410087
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -153185,6 +153185,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1406377995}
+        m_TargetAssemblyTypeName: PlaceBuilding, Assembly-CSharp
+        m_MethodName: CancelBuilding
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1142607062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153235,7 +153247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6b575f732d5c40f6845e143ab799ab0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMouseOverPlaceBuldingButton: 0
+  isMouseOverUI: 0
 --- !u!1001 &1143184844
 PrefabInstance:
   m_ObjectHideFlags: 0
