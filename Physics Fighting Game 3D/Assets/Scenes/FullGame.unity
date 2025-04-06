@@ -188013,6 +188013,7 @@ MonoBehaviour:
   buildingPrefabs:
   - {fileID: 1801484294960248, guid: 5c3dddb730597964f907baf90b45fc95, type: 3}
   - {fileID: 856398555087085630, guid: afda47aa1e31742859551021075da029, type: 3}
+  - {fileID: 119446, guid: 6a03abf06fc3f154abc371fa4e38f7d1, type: 3}
   soundSource: {fileID: 0}
   triggerSound: {fileID: 0}
   scaleFactor: 5

@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         placeBuilding = FindObjectOfType<PlaceBuilding>();
-        money = 4000;
+        money = 99999;
         power = 100;
         Cooldown = 3f; 
     }

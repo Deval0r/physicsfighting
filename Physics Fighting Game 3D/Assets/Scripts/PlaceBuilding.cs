@@ -2,6 +2,8 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+//please dont edit this file
+
 public class PlaceBuilding : MonoBehaviour
 {
     public GameManager gameManager;
@@ -28,6 +30,7 @@ public class PlaceBuilding : MonoBehaviour
     }
     void Update()
     {
+        print(isSelectedBuilding);
         if (Input.GetKeyDown(KeyCode.Alpha1)) 
         {
             buildingIndex = 0; 
@@ -40,7 +43,14 @@ public class PlaceBuilding : MonoBehaviour
         {
             buildingIndex = 2; 
         }
-        if (isSelectedBuilding && buildingClone != null && !placeBuildingButton.isMouseOverPlaceBuldingButton) 
+        //destroy buiding clone if mouse over ui
+        if(placeBuildingButton.isMouseOverUI && isSelectedBuilding) 
+        {
+            isSelectedBuilding = false; 
+            Destroy(buildingClone); 
+            buildingClone = null; 
+        }
+        if (isSelectedBuilding && buildingClone != null && !placeBuildingButton.isMouseOverUI) 
         {
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
             {
@@ -55,7 +65,7 @@ public class PlaceBuilding : MonoBehaviour
                 }
             }
 
-            if (Input.GetMouseButtonDown(0) && gameManager.money >= 500 && Physics.Raycast(buildingClone.transform.position, Vector3.down, out RaycastHit hitInfo, 1)) 
+            if (Input.GetMouseButtonDown(0) && gameManager.money >= 500  && !placeBuildingButton.isMouseOverUI && Physics.Raycast(buildingClone.transform.position, Vector3.down, out RaycastHit hitInfo, 1)) 
             {
                 GameObject placedBuilding = Instantiate(buildingPrefabs[buildingIndex], buildingClone.transform.position, buildingClone.transform.rotation); 
                 soundSource.PlayOneShot(triggerSound);
@@ -85,14 +95,14 @@ public class PlaceBuilding : MonoBehaviour
                     isSelectedBuilding = false;
                 }
             }
-            if (Input.GetMouseButtonDown(0) && gameManager.money < 500) 
+            if (Input.GetMouseButtonDown(0) && gameManager.money < 500  && !placeBuildingButton.isMouseOverUI) 
             {
                 buildingClone.GetComponent<MeshRenderer>().material.color = Color.yellow;
                 Destroy(buildingClone, 0.1f);
                 buildingClone = null;
             }
         }
-        if (isRemovingBuilding && Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hitInfo2))
+        if (isRemovingBuilding && !isSelectedBuilding  && !placeBuildingButton.isMouseOverUI &&  Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hitInfo2))
         {
             if (hitInfo2.collider.gameObject.tag == "Building")
             {
@@ -149,5 +159,15 @@ public class PlaceBuilding : MonoBehaviour
     public void RemoveBuildings() 
     { 
         isRemovingBuilding = !isRemovingBuilding;
+    }
+
+    public void CancelBuilding() 
+    { 
+        /*if (isSelectedBuilding) 
+        { 
+            isSelectedBuilding = false; 
+            Destroy(buildingClone); 
+            buildingClone = null; 
+        }*/
     }
 }
