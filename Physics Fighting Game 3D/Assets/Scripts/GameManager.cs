@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
         if (Cooldown <= 0)
         {
             money += placeBuilding.factoryCount * 10;
-            power -= placeBuilding.factoryCount * 5;
+            power = (placeBuilding.windTurbineCount * 10) - (placeBuilding.factoryCount * 5 + placeBuilding.bankCount * 5);
             if (power < 0)
             {
                 power = 0;

@@ -20,9 +20,13 @@ public class PlaceBuilding : MonoBehaviour
     private GameObject buildingClone; 
     public bool isSelectedBuilding; 
     public bool isRemovingBuilding;
+
     public int factoryCount;
     public int batteryCount;
     public int bankCount;
+    public int farmCount;
+    public int windTurbineCount;
+
     private MeshRenderer removedBuildingMeshRenderer;
     public GameObject[] buildingPrefabs;
     public AudioSource soundSource;
@@ -36,18 +40,30 @@ public class PlaceBuilding : MonoBehaviour
     }
     void Update()
     {
-        print(bankCount);
         if (Input.GetKeyDown(KeyCode.Alpha1)) 
         {
             buildingIndex = 0; 
+            Destroy(buildingClone);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2)) 
         {
             buildingIndex = 1; 
+            Destroy(buildingClone);
         }
         if (Input.GetKeyDown(KeyCode.Alpha3)) 
         {
             buildingIndex = 2; 
+            Destroy(buildingClone);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4)) 
+        {
+            buildingIndex = 3; 
+            Destroy(buildingClone);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5)) 
+        {
+            buildingIndex = 4; 
+            Destroy(buildingClone);
         }
         if (Input.GetMouseButtonDown(0) && placeBuildingButton.isMouseOverUI && isSelectedBuilding) 
         {
@@ -96,6 +112,14 @@ public class PlaceBuilding : MonoBehaviour
                 {
                     bankCount++;
                 }
+                else if (buildingIndex == 3)
+                {
+                    farmCount++;
+                }
+                else if (buildingIndex == 4)
+                {
+                    windTurbineCount++;
+                }
                 gameManager.money -= 500;
                 if (gameManager.money >= 500)
                 {
@@ -140,6 +164,14 @@ public class PlaceBuilding : MonoBehaviour
                     else if (buildingIndex == 2)
                     {
                         bankCount--;
+                    } 
+                    else if (buildingIndex == 3)
+                    {
+                        farmCount--;
+                    }
+                    else if (buildingIndex == 4)
+                    {
+                        windTurbineCount--;
                     }
                 } 
             } else if (removedBuildingMeshRenderer != null)

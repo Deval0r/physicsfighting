@@ -17,6 +17,9 @@ public class Hotbar : MonoBehaviour
         Transform factory = transform.GetChild(0);
         Transform battery = transform.GetChild(1);
         Transform bank = transform.GetChild(2);
+        Transform farm = transform.GetChild(3);
+        Transform windTurbine = transform.GetChild(4);
+
         if (placeBuilding.buildingIndex == 0)
         {
             factory.GetComponent<Image>().color = Color.red;
@@ -28,6 +31,14 @@ public class Hotbar : MonoBehaviour
         if (placeBuilding.buildingIndex == 2)
         {
             bank.GetComponent<Image>().color = Color.red;
+        }
+        if (placeBuilding.buildingIndex == 3)
+        {
+            farm.GetComponent<Image>().color = Color.red;
+        }
+        if (placeBuilding.buildingIndex == 4)
+        {
+            windTurbine.GetComponent<Image>().color = Color.red;
         }
         if (placeBuilding.buildingIndex != currentBuildingIndex)
         {
@@ -42,6 +53,14 @@ public class Hotbar : MonoBehaviour
             if (currentBuildingIndex == 2)
             {
                 bank.GetComponent<Image>().color = Color.white;
+            }
+            if (currentBuildingIndex == 3)
+            {
+                farm.GetComponent<Image>().color = Color.white;
+            }
+            if (currentBuildingIndex == 4)
+            {
+                windTurbine.GetComponent<Image>().color = Color.white;
             }
             currentBuildingIndex = placeBuilding.buildingIndex;
         }
