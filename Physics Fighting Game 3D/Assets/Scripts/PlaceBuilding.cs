@@ -36,7 +36,7 @@ public class PlaceBuilding : MonoBehaviour
     }
     void Update()
     {
-        print(isSelectedBuilding);
+        print(bankCount);
         if (Input.GetKeyDown(KeyCode.Alpha1)) 
         {
             buildingIndex = 0; 
@@ -109,6 +109,7 @@ public class PlaceBuilding : MonoBehaviour
             }
             if (Input.GetMouseButtonDown(0) && gameManager.money < 500  && !placeBuildingButton.isMouseOverUI) 
             {
+                isSelectedBuilding = false;
                 buildingClone.GetComponent<MeshRenderer>().material.color = Color.yellow;
                 Destroy(buildingClone, 0.1f);
                 buildingClone = null;
