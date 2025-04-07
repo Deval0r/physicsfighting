@@ -36,7 +36,7 @@ public class PlaceBuilding : MonoBehaviour
     }
     void Update()
     {
-        print(isSelectedBuilding);
+        print(isRemovingBuilding);
         if (Input.GetKeyDown(KeyCode.Alpha1)) 
         {
             buildingIndex = 0; 
@@ -54,6 +54,21 @@ public class PlaceBuilding : MonoBehaviour
             isSelectedBuilding = false; 
             Destroy(buildingClone); 
             buildingClone = null; 
+        }
+        if (Input.GetKeyDown(KeyCode.Escape) && !placeBuildingButton.isMouseOverUI) 
+        {
+            isSelectedBuilding = false; 
+            Destroy(buildingClone); 
+            buildingClone = null; 
+        }
+        if (Input.GetMouseButtonDown(0) && isRemovingBuilding) 
+        {
+            if (isSelectedBuilding) 
+            {
+                isRemovingBuilding = false; 
+                Destroy(buildingClone); 
+                buildingClone = null; 
+            }
         }
         if (isSelectedBuilding && buildingClone != null && !placeBuildingButton.isMouseOverUI) 
         {
@@ -164,15 +179,5 @@ public class PlaceBuilding : MonoBehaviour
     public void RemoveBuildings() 
     { 
         isRemovingBuilding = !isRemovingBuilding;
-    }
-
-    public void CancelBuilding() 
-    { 
-        /*if (isSelectedBuilding) 
-        { 
-            isSelectedBuilding = false; 
-            Destroy(buildingClone); 
-            buildingClone = null; 
-        }*/
     }
 }
