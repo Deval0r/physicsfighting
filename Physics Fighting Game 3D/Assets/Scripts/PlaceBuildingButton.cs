@@ -20,7 +20,7 @@ public class PlaceBuildingButton : MonoBehaviour
         isMouseOverUI = EventSystem.current.IsPointerOverGameObject();
 
         ColorBlock colorBlock = placeButton.colors;
-        if (placeBuilding.isSelectedBuilding)
+        if (placeBuilding.isSelectedBuilding && !placeButton.colors.selectedColor.Equals(Color.blue))
         {
             colorBlock.normalColor = Color.blue;
             colorBlock.highlightedColor = Color.blue;
@@ -28,7 +28,7 @@ public class PlaceBuildingButton : MonoBehaviour
             colorBlock.selectedColor = Color.blue;
             colorBlock.disabledColor = Color.blue;
         }
-        else
+        else if (!placeBuilding.isSelectedBuilding && !placeButton.colors.selectedColor.Equals(Color.white))
         {
             colorBlock.normalColor = Color.white;
             colorBlock.highlightedColor = Color.white;
