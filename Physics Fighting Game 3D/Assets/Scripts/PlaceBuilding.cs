@@ -2,7 +2,13 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-//please dont edit this file
+
+
+
+
+
+
+//please dont edit this file too much 
 
 public class PlaceBuilding : MonoBehaviour
 {
@@ -43,8 +49,7 @@ public class PlaceBuilding : MonoBehaviour
         {
             buildingIndex = 2; 
         }
-        //destroy buiding clone if mouse over ui
-        if(placeBuildingButton.isMouseOverUI && isSelectedBuilding) 
+        if (Input.GetMouseButtonDown(0) && placeBuildingButton.isMouseOverUI) 
         {
             isSelectedBuilding = false; 
             Destroy(buildingClone); 
