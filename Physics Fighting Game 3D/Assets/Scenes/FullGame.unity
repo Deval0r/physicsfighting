@@ -180729,6 +180729,7 @@ MonoBehaviour:
   placeBuilding: {fileID: 0}
   maxPower: 0
   currentPower: 0
+  lerpSpeed: 10
 --- !u!4 &1351406508 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8260414767725919869, guid: 866a9b4251af6a742b767b11667a58bd, type: 3}
@@ -188158,7 +188159,7 @@ MonoBehaviour:
   - {fileID: 856398555087085630, guid: afda47aa1e31742859551021075da029, type: 3}
   - {fileID: 119446, guid: 6a03abf06fc3f154abc371fa4e38f7d1, type: 3}
   - {fileID: 180958, guid: 8c61acc35acbd6d489977c81317f86f3, type: 3}
-  - {fileID: 1251436290733390896, guid: 5702f5ea6f6a0ae4893cfe48b52e1ac7, type: 3}
+  - {fileID: 3742142680765950103, guid: 42cea2ddac2a540df81743c447114c84, type: 3}
   soundSource: {fileID: 0}
   triggerSound: {fileID: 0}
   scaleFactor: 5
@@ -257775,6 +257776,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
   placeBuilding: {fileID: 0}
+  lerpSpeed: 10
 --- !u!114 &1960498798
 MonoBehaviour:
   m_ObjectHideFlags: 0

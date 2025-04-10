@@ -8,13 +8,19 @@ public class PowerScript : MonoBehaviour
     public PlaceBuilding placeBuilding;
     public int maxPower;
     public int currentPower;
+    private float displayPower; // Display value for smooth lerping
+    private float displayMaxPower; // Display value for max power
+    public float lerpSpeed = 10f; // Speed of the lerp
 
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
         placeBuilding = FindObjectOfType<PlaceBuilding>();
         powerText = GetComponent<TextMeshProUGUI>(); 
+        displayPower = gameManager.power; // Initialize display value
+        displayMaxPower = placeBuilding.batteryCount * 1000; // Initialize max display value
     }
+
     void Update()
     {
         currentPower = gameManager.power;
@@ -24,6 +30,10 @@ public class PowerScript : MonoBehaviour
             gameManager.power = maxPower;
         }
 
-        powerText.text = "Power: " + gameManager.power + "/" + maxPower + "J";
+        // Smoothly lerp both display values
+        displayPower = Mathf.Lerp(displayPower, currentPower, Time.deltaTime * lerpSpeed);
+        displayMaxPower = Mathf.Lerp(displayMaxPower, maxPower, Time.deltaTime * lerpSpeed);
+
+        powerText.text = "Power: " + Mathf.RoundToInt(displayPower) + "/" + Mathf.RoundToInt(displayMaxPower) + "J";
     }
 }
