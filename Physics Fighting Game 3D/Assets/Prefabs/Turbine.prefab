@@ -24,10 +24,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turbine
       objectReference: {fileID: 0}
-    - target: {fileID: 8128668236925612103, guid: 06a790a2272484dd3a8b0813646f2dbe, type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: 06a790a2272484dd3a8b0813646f2dbe, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.0005

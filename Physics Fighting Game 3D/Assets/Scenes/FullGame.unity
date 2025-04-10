@@ -6998,6 +6998,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8260414767725919869, guid: 866a9b4251af6a742b767b11667a58bd, type: 3}
   m_PrefabInstance: {fileID: 282311242}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &60163513 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1251436290733390896, guid: 5702f5ea6f6a0ae4893cfe48b52e1ac7, type: 3}
+  m_PrefabInstance: {fileID: 7522522278692685504}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &60283054
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -188157,8 +188162,13 @@ MonoBehaviour:
   - {fileID: 1801484294960248, guid: 5c3dddb730597964f907baf90b45fc95, type: 3}
   - {fileID: 856398555087085630, guid: afda47aa1e31742859551021075da029, type: 3}
   - {fileID: 119446, guid: 6a03abf06fc3f154abc371fa4e38f7d1, type: 3}
+<<<<<<< HEAD
   - {fileID: 180958, guid: 8c61acc35acbd6d489977c81317f86f3, type: 3}
   - {fileID: 1251436290733390896, guid: 5702f5ea6f6a0ae4893cfe48b52e1ac7, type: 3}
+=======
+  - {fileID: 368013875}
+  - {fileID: 60163513}
+>>>>>>> parent of 87acc3d (more turbine work see desc)
   soundSource: {fileID: 0}
   triggerSound: {fileID: 0}
   scaleFactor: 5
@@ -280867,6 +280877,123 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4013ca0aa7fd67e4095dcf1fa10f8c44, type: 3}
+<<<<<<< HEAD
+=======
+--- !u!1001 &5057348100389027978
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 952254460971920479, guid: a700126d52088b24b96677c467afc201, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.5659328
+      objectReference: {fileID: 0}
+    - target: {fileID: 952254460971920479, guid: a700126d52088b24b96677c467afc201, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.3447022
+      objectReference: {fileID: 0}
+    - target: {fileID: 952254460971920479, guid: a700126d52088b24b96677c467afc201, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.387728
+      objectReference: {fileID: 0}
+    - target: {fileID: 952254460971920479, guid: a700126d52088b24b96677c467afc201, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 952254460971920479, guid: a700126d52088b24b96677c467afc201, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 952254460971920479, guid: a700126d52088b24b96677c467afc201, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 952254460971920479, guid: a700126d52088b24b96677c467afc201, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 952254460971920479, guid: a700126d52088b24b96677c467afc201, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 952254460971920479, guid: a700126d52088b24b96677c467afc201, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 952254460971920479, guid: a700126d52088b24b96677c467afc201, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4893899180585411106, guid: a700126d52088b24b96677c467afc201, type: 3}
+      propertyPath: m_Name
+      value: FarmPlaceholder
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a700126d52088b24b96677c467afc201, type: 3}
+--- !u!1001 &7522522278692685504
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1251436290733390896, guid: 5702f5ea6f6a0ae4893cfe48b52e1ac7, type: 3}
+      propertyPath: m_Name
+      value: TurbinePlaceholder
+      objectReference: {fileID: 0}
+    - target: {fileID: 5973096921553337882, guid: 5702f5ea6f6a0ae4893cfe48b52e1ac7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.5659328
+      objectReference: {fileID: 0}
+    - target: {fileID: 5973096921553337882, guid: 5702f5ea6f6a0ae4893cfe48b52e1ac7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.3447022
+      objectReference: {fileID: 0}
+    - target: {fileID: 5973096921553337882, guid: 5702f5ea6f6a0ae4893cfe48b52e1ac7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.387728
+      objectReference: {fileID: 0}
+    - target: {fileID: 5973096921553337882, guid: 5702f5ea6f6a0ae4893cfe48b52e1ac7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5973096921553337882, guid: 5702f5ea6f6a0ae4893cfe48b52e1ac7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5973096921553337882, guid: 5702f5ea6f6a0ae4893cfe48b52e1ac7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5973096921553337882, guid: 5702f5ea6f6a0ae4893cfe48b52e1ac7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5973096921553337882, guid: 5702f5ea6f6a0ae4893cfe48b52e1ac7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5973096921553337882, guid: 5702f5ea6f6a0ae4893cfe48b52e1ac7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5973096921553337882, guid: 5702f5ea6f6a0ae4893cfe48b52e1ac7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5702f5ea6f6a0ae4893cfe48b52e1ac7, type: 3}
+>>>>>>> parent of 87acc3d (more turbine work see desc)
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -280882,3 +281009,10 @@ SceneRoots:
   - {fileID: 3296897134775178982}
   - {fileID: 488549349}
   - {fileID: 438452334}
+<<<<<<< HEAD
+=======
+  - {fileID: 5057348100389027978}
+  - {fileID: 7522522278692685504}
+  - {fileID: 1066996849}
+  - {fileID: 385516906}
+>>>>>>> parent of 87acc3d (more turbine work see desc)
