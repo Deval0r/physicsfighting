@@ -24,21 +24,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turbine
       objectReference: {fileID: 0}
+    - target: {fileID: 8128668236925612103, guid: 06a790a2272484dd3a8b0813646f2dbe, type: 3}
+      propertyPath: m_TagString
+      value: Building
+      objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: 06a790a2272484dd3a8b0813646f2dbe, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.0005
+      value: 0.001
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: 06a790a2272484dd3a8b0813646f2dbe, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.0005
+      value: 0.001
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: 06a790a2272484dd3a8b0813646f2dbe, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.0005
+      value: 0.001
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: 06a790a2272484dd3a8b0813646f2dbe, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.8920956
+      value: -2.565933
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: 06a790a2272484dd3a8b0813646f2dbe, type: 3}
       propertyPath: m_LocalPosition.y
@@ -46,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: 06a790a2272484dd3a8b0813646f2dbe, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -31.447483
+      value: -10.38773
       objectReference: {fileID: 0}
     - target: {fileID: 8897093224900880590, guid: 06a790a2272484dd3a8b0813646f2dbe, type: 3}
       propertyPath: m_LocalRotation.w
@@ -84,6 +88,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8128668236925612103, guid: 06a790a2272484dd3a8b0813646f2dbe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3127798738049353195}
+    - targetCorrespondingSourceObject: {fileID: 8128668236925612103, guid: 06a790a2272484dd3a8b0813646f2dbe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3189303144910680410}
   m_SourcePrefab: {fileID: -5645937942226959685, guid: 06a790a2272484dd3a8b0813646f2dbe, type: 3}
 --- !u!1 &3742142680765950103 stripped
 GameObject:
@@ -112,3 +119,26 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!136 &3189303144910680410
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3742142680765950103}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 317.7
+  m_Height: 5670.3286
+  m_Direction: 1
+  m_Center: {x: 0, y: 2753.118, z: 0}
