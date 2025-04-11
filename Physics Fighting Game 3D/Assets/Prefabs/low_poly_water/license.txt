@@ -1,0 +1,11 @@
+Model Information:
+* title:	Low Poly Water
+* source:	https://sketchfab.com/3d-models/low-poly-water-f3471d6d2e4447fc8b5cf837c963c1de
+* author:	A4antivirus (https://sketchfab.com/A4antivirus)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Low Poly Water" (https://sketchfab.com/3d-models/low-poly-water-f3471d6d2e4447fc8b5cf837c963c1de) by A4antivirus (https://sketchfab.com/A4antivirus) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
