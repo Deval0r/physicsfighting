@@ -5,63 +5,52 @@ public class Hotbar : MonoBehaviour
 {
     public PlaceBuilding placeBuilding;
     private int currentBuildingIndex;
+    private RawImage factory;
+    private RawImage battery;
+    private RawImage bank;
+    private RawImage farm;
+    private RawImage windTurbine;
+    private RawImage[] slots;
+    private Color[] previousColors;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         placeBuilding = FindObjectOfType<PlaceBuilding>();
+        // Get RawImage components from children
+        factory = transform.GetChild(0).GetComponent<RawImage>();
+        battery = transform.GetChild(1).GetComponent<RawImage>();
+        bank = transform.GetChild(2).GetComponent<RawImage>();
+        farm = transform.GetChild(3).GetComponent<RawImage>();
+        windTurbine = transform.GetChild(4).GetComponent<RawImage>();
+        
+        // Store all slots in an array for easier access
+        slots = new RawImage[] { factory, battery, bank, farm, windTurbine };
+        previousColors = new Color[slots.Length];
+        for (int i = 0; i < slots.Length; i++)
+        {
+            previousColors[i] = slots[i].color;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        Transform factory = transform.GetChild(0);
-        Transform battery = transform.GetChild(1);
-        Transform bank = transform.GetChild(2);
-        Transform farm = transform.GetChild(3);
-        Transform windTurbine = transform.GetChild(4);
-
-        if (placeBuilding.buildingIndex == 0)
-        {
-            factory.GetComponent<Image>().color = Color.red;
-        }
-        if (placeBuilding.buildingIndex == 1)
-        {
-            battery.GetComponent<Image>().color = Color.red;
-        }
-        if (placeBuilding.buildingIndex == 2)
-        {
-            bank.GetComponent<Image>().color = Color.red;
-        }
-        if (placeBuilding.buildingIndex == 3)
-        {
-            farm.GetComponent<Image>().color = Color.red;
-        }
-        if (placeBuilding.buildingIndex == 4)
-        {
-            windTurbine.GetComponent<Image>().color = Color.red;
-        }
+        // Only update colors if the building index changed
         if (placeBuilding.buildingIndex != currentBuildingIndex)
         {
-            if (currentBuildingIndex == 0)
+            // Reset previous selection
+            if (currentBuildingIndex >= 0 && currentBuildingIndex < slots.Length)
             {
-                factory.GetComponent<Image>().color = Color.white;
+                slots[currentBuildingIndex].color = Color.white;
             }
-            if (currentBuildingIndex == 1)
+
+            // Set new selection
+            if (placeBuilding.buildingIndex >= 0 && placeBuilding.buildingIndex < slots.Length)
             {
-                battery.GetComponent<Image>().color = Color.white;
+                slots[placeBuilding.buildingIndex].color = Color.red;
             }
-            if (currentBuildingIndex == 2)
-            {
-                bank.GetComponent<Image>().color = Color.white;
-            }
-            if (currentBuildingIndex == 3)
-            {
-                farm.GetComponent<Image>().color = Color.white;
-            }
-            if (currentBuildingIndex == 4)
-            {
-                windTurbine.GetComponent<Image>().color = Color.white;
-            }
+
             currentBuildingIndex = placeBuilding.buildingIndex;
         }
     }
