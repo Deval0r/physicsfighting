@@ -5,11 +5,13 @@ public class FoodSpawn : MonoBehaviour
     [SerializeField] private GameObject foodPrefab;
     [SerializeField] private GameObject foodSpawnPoint;
     
+    public PlaceBuilding placeBuilding;
     private float coolDown;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         coolDown = 3;
+        placeBuilding = FindObjectOfType<PlaceBuilding>();
     }
 
     // Update is called once per frame
@@ -17,8 +19,14 @@ public class FoodSpawn : MonoBehaviour
     {
         if (coolDown <= 0)
         {
-            SpawnFood();
-            coolDown = 3;
+            if (placeBuilding.isPlacedRestauant)
+            {
+                SpawnFood();
+            }
+            else
+            {
+                coolDown = 3;
+            }
         }
         else
         {

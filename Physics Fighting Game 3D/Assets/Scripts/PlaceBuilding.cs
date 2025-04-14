@@ -8,6 +8,25 @@ using UnityEngine.EventSystems;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //please dont edit this file too much 
 
 public class PlaceBuilding : MonoBehaviour
@@ -20,6 +39,8 @@ public class PlaceBuilding : MonoBehaviour
     private GameObject buildingClone; 
     public bool isSelectedBuilding; 
     public bool isRemovingBuilding;
+
+    public bool isPlacedRestauant;
 
     public int factoryCount;
     public int batteryCount;
@@ -115,6 +136,7 @@ public class PlaceBuilding : MonoBehaviour
                 else if (buildingIndex == 3)
                 {
                     farmCount++;
+                    isPlacedRestauant = true;
                 }
                 else if (buildingIndex == 4)
                 {

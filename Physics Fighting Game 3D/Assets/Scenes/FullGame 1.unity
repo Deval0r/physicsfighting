@@ -195743,6 +195743,7 @@ MonoBehaviour:
   buildingIndex: 0
   isSelectedBuilding: 0
   isRemovingBuilding: 0
+  isPlacedRestauant: 0
   factoryCount: 0
   batteryCount: 0
   bankCount: 0
@@ -195752,7 +195753,7 @@ MonoBehaviour:
   - {fileID: 1801484294960248, guid: 5c3dddb730597964f907baf90b45fc95, type: 3}
   - {fileID: 856398555087085630, guid: afda47aa1e31742859551021075da029, type: 3}
   - {fileID: 119446, guid: 6a03abf06fc3f154abc371fa4e38f7d1, type: 3}
-  - {fileID: 180958, guid: 8c61acc35acbd6d489977c81317f86f3, type: 3}
+  - {fileID: 812943966743028426, guid: c4fd89995784e4a0c968067062b2d927, type: 3}
   - {fileID: 3742142680765950103, guid: 42cea2ddac2a540df81743c447114c84, type: 3}
   soundSource: {fileID: 0}
   triggerSound: {fileID: 0}
