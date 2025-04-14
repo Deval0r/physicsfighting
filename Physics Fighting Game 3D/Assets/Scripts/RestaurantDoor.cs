@@ -32,7 +32,6 @@ public class RestaurantDoor : MonoBehaviour
         {
             isOpening = true;
             isClosing = false;
-            print("Door Opening");
         }
     }
 
@@ -42,7 +41,6 @@ public class RestaurantDoor : MonoBehaviour
         {
             isOpening = false;
             isClosing = true;
-            print("Door Closing");
         }
     }
 }
