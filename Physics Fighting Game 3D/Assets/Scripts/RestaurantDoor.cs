@@ -1,30 +1,48 @@
-using System.Numerics;
 using UnityEngine;
 
 public class RestaurantDoor : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private Vector3 closedPosition;
+    private Vector3 openPosition;
+    private bool isOpening = false;
+    private bool isClosing = false;
+    private float speed = 2f;
+
     void Start()
     {
-        
+        closedPosition = transform.position;
+        openPosition = closedPosition + new Vector3(0, 0, 3);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (isOpening)
+        {
+            transform.position = Vector3.Lerp(transform.position, openPosition, Time.deltaTime * speed);
+        }
+        else if (isClosing)
+        {
+            transform.position = Vector3.Lerp(transform.position, closedPosition, Time.deltaTime * speed);
+        }
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            OpenDoor();
+            isOpening = true;
+            isClosing = false;
+            print("Door Opening");
         }
     }
-    private void OpenDoor()
+
+    void OnTriggerExit(Collider other)
     {
-        // Logic to open the door
-        transform.Rotate(0, 90, 0); // Example: Rotate the door 90 degrees around the Y-axis
+        if (other.CompareTag("Player"))
+        {
+            isOpening = false;
+            isClosing = true;
+            print("Door Closing");
+        }
     }
 }
