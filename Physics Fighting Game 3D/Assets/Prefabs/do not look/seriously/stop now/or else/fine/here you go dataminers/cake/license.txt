@@ -1,0 +1,11 @@
+Model Information:
+* title:	Cake
+* source:	https://sketchfab.com/3d-models/cake-58d8d1bf8f1845938d87274bddb90941
+* author:	alex.yefremov (https://sketchfab.com/alex.yefremov)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Cake" (https://sketchfab.com/3d-models/cake-58d8d1bf8f1845938d87274bddb90941) by alex.yefremov (https://sketchfab.com/alex.yefremov) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
