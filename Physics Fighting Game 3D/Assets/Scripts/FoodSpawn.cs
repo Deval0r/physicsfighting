@@ -10,7 +10,7 @@ public class FoodSpawn : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        coolDown = 3;
+        coolDown = 10;
         placeBuilding = FindObjectOfType<PlaceBuilding>();
     }
 

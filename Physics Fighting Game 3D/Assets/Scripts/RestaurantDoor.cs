@@ -11,7 +11,7 @@ public class RestaurantDoor : MonoBehaviour
     void Start()
     {
         closedPosition = transform.position;
-        openPosition = closedPosition + new Vector3(0, 0, 3);
+        openPosition = closedPosition + new Vector3(3, 0, 0);
     }
 
     void Update()
