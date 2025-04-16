@@ -19,13 +19,14 @@ public class FoodSpawn : MonoBehaviour
     {
         if (coolDown <= 0)
         {
+
             if (placeBuilding.isPlacedRestauant)
             {
                 SpawnFood();
             }
             else
             {
-                coolDown = 3;
+                coolDown = 10;
             }
         }
         else
