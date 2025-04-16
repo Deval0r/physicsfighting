@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Collections;
 public class ObjectEnableDisable : MonoBehaviour
 {
     public GameObject targetObject; // The object to disable and later enable
