@@ -42,6 +42,8 @@ public class PlaceBuilding : MonoBehaviour
 
     public bool isPlacedRestauant;
 
+    public GameObject buildingClonePrefab;
+
     public int factoryCount;
     public int batteryCount;
     public int bankCount;
@@ -62,9 +64,10 @@ public class PlaceBuilding : MonoBehaviour
     void Update()
     {
         print(isSelectedBuilding);
+        buildingClonePrefab = buildingClone;
         if (Input.GetKeyDown(KeyCode.Alpha1)) 
         {
-            buildingIndex = 0; 
+            buildingIndex = 0;
             Destroy(buildingClone);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2)) 
