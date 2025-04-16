@@ -71911,6 +71911,7 @@ GameObject:
   - component: {fileID: 506619306}
   - component: {fileID: 506619308}
   - component: {fileID: 506619307}
+  - component: {fileID: 506619309}
   m_Layer: 5
   m_Name: RawImage
   m_TagString: Untagged
@@ -71972,6 +71973,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 506619305}
   m_CullTransparentMesh: 1
+--- !u!114 &506619309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 506619305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46284a71840b9dc44982974ece3b7c66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 198449927}
+  crosshair: {fileID: 506619307}
+  normalSize: 100
+  enlargedSize: 175
+  normalTransparency: 1
+  actionTransparency: 0.25
+  resizeSpeed: 5
 --- !u!4 &507462109 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8260414767725919869, guid: 866a9b4251af6a742b767b11667a58bd, type: 3}
@@ -195831,7 +195851,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetObject: {fileID: 506619305}
   alternateObject: {fileID: 1973488448}
+  observedObject: {fileID: 1274548372}
+  audioSource: {fileID: 1406377993}
   enableCondition: 0
+  fadeDuration: 1
 --- !u!1001 &1406686772
 PrefabInstance:
   m_ObjectHideFlags: 0

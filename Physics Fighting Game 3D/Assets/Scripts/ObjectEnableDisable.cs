@@ -1,33 +1,38 @@
 using UnityEngine;
 using System.Collections;
+
 public class ObjectEnableDisable : MonoBehaviour
 {
-    public GameObject targetObject; // The object to disable and later enable
+    public GameObject targetObject; // The object to enable
     public GameObject alternateObject; // The object to disable when the target is enabled
-    public bool enableCondition = false; // This condition will be checked repeatedly
+    public GameObject observedObject; // The object to monitor for activation
+    public AudioSource audioSource; // The audio source to fade out and disable
+    public bool enableCondition = false; // Condition will be updated dynamically
+    public float fadeDuration = 1f; // Time in seconds for audio fade-out
 
     void Start()
     {
-        // Start the coroutine to handle the enable-disable sequence
         StartCoroutine(HandleObjectEnableDisable());
     }
 
     IEnumerator HandleObjectEnableDisable()
     {
-        // Disable the target object initially
         if (targetObject != null)
         {
             targetObject.SetActive(false);
             Debug.Log("Target object disabled.");
         }
 
-        // Wait for 1 second
         yield return new WaitForSeconds(1f);
 
-        // Repeatedly check the condition to enable the target object
         while (true)
         {
-            if (enableCondition) // Condition to enable the target object
+            if (observedObject != null && observedObject.activeSelf)
+            {
+                enableCondition = true;
+            }
+
+            if (enableCondition)
             {
                 if (targetObject != null)
                 {
@@ -41,12 +46,31 @@ public class ObjectEnableDisable : MonoBehaviour
                     Debug.Log("Alternate object disabled.");
                 }
 
-                // Exit the loop since the action is completed
+                if (audioSource != null && audioSource.isPlaying)
+                {
+                    yield return StartCoroutine(FadeOutAudio(audioSource, fadeDuration));
+                    audioSource.gameObject.SetActive(false);
+                    Debug.Log("Audio source disabled after fade-out.");
+                }
+
                 yield break;
             }
 
-            // Wait for a short interval before checking the condition again
             yield return new WaitForSeconds(0.1f);
         }
+    }
+
+    IEnumerator FadeOutAudio(AudioSource source, float duration)
+    {
+        float startVolume = source.volume;
+
+        for (float t = 0; t < duration; t += Time.deltaTime)
+        {
+            source.volume = Mathf.Lerp(startVolume, 0f, t / duration);
+            yield return null;
+        }
+
+        source.Stop();
+        source.volume = startVolume; // Reset volume for next use
     }
 }
