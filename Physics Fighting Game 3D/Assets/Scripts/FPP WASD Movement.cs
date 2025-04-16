@@ -24,9 +24,9 @@ public class FPPWASDMovement : MonoBehaviour
     private CharacterController controller;
     private float verticalRotation = 0f;
     private Vector3 velocity;
-    private bool isGrounded;
+    public bool isGrounded;
     public float stamina; // Changed to public
-    private bool isSprinting;
+    public bool isSprinting;
 
     void Start()
     {

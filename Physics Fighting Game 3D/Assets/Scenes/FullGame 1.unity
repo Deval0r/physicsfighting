@@ -26215,7 +26215,9 @@ MonoBehaviour:
   mouseSensitivity: 2
   playerCamera: {fileID: 732126281}
   maxLookAngle: 80
+  isGrounded: 0
   stamina: 0
+  isSprinting: 0
 --- !u!143 &198449934
 CharacterController:
   m_ObjectHideFlags: 0
@@ -195827,6 +195829,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87a126c485ade4b5990974c7179f8a19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetObject: {fileID: 506619305}
+  alternateObject: {fileID: 1973488448}
+  enableCondition: 0
 --- !u!1001 &1406686772
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -270200,6 +270205,7 @@ GameObject:
   - component: {fileID: 1973488449}
   - component: {fileID: 1973488451}
   - component: {fileID: 1973488450}
+  - component: {fileID: 1973488452}
   m_Layer: 5
   m_Name: Crosshair2
   m_TagString: Untagged
@@ -270261,6 +270267,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1973488448}
   m_CullTransparentMesh: 1
+--- !u!114 &1973488452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1973488448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46284a71840b9dc44982974ece3b7c66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 198449927}
+  crosshair: {fileID: 1973488450}
+  normalSize: 100
+  enlargedSize: 175
+  normalTransparency: 1
+  actionTransparency: 0.25
+  resizeSpeed: 5
 --- !u!4 &1973611480 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8260414767725919869, guid: 866a9b4251af6a742b767b11667a58bd, type: 3}
