@@ -56,7 +56,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 8.256662, y: 3.345211, z: 0.06612396}
   m_Center: {x: 7.0933285, y: 1.8698306, z: 2.7112331}
@@ -523,7 +523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43acf3a97822140b58c7a6c88e65b1ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodPrefab: {fileID: 25740380204694587, guid: 6e6edc1075286451e95b806b8616dda7, type: 3}
+  foodPrefab: {fileID: -6689036041284674117, guid: d052550b34e2c422198831f01e0c920c, type: 3}
   foodSpawnPoint: {fileID: 8373321933806071296}
   placeBuilding: {fileID: 0}
 --- !u!1001 &2738173818702465105
@@ -817,7 +817,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0, y: 2.2567081, z: 2.3710437}
   m_Center: {x: 3.653848, y: 1.279034, z: 0.029445171}

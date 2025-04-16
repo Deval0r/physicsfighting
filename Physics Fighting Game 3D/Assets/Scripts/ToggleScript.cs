@@ -25,7 +25,6 @@ public class ToggleScript : MonoBehaviour
 
             placeBuilding.isSelectedBuilding = false;
             placeBuilding.isRemovingBuilding = false;
-            placeBuilding.isPlacedRestauant = false;
 
             Destroy(placeBuilding.buildingClonePrefab); 
             placeBuilding.buildingClonePrefab = null; 
@@ -37,7 +36,6 @@ public class ToggleScript : MonoBehaviour
 
             placeBuilding.isSelectedBuilding = false;
             placeBuilding.isRemovingBuilding = false;
-            placeBuilding.isPlacedRestauant = false;
 
             Destroy(placeBuilding.buildingClonePrefab); 
             placeBuilding.buildingClonePrefab = null; 

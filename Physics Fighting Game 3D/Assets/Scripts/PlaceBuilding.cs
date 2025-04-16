@@ -215,23 +215,22 @@ public class PlaceBuilding : MonoBehaviour
             Destroy(buildingClone); 
             buildingClone = null; 
         }
-        isSelectedBuilding = !isSelectedBuilding;
-        if (isSelectedBuilding) 
+
+        if (isSelectedBuilding)
         {
-            if (buildingClone == null) 
-            { 
-                buildingClone = Instantiate(buildingPrefabs[buildingIndex]); 
-                buildingClone.GetComponent<MeshRenderer>().material.color = Color.blue; 
-                buildingClone.GetComponent<Collider>().enabled = false; 
-                isSelectedBuilding = true; 
-            }
-            else
-            {
-                Destroy(buildingClone); 
-                buildingClone = null;
-            }
+            isSelectedBuilding = false;
+            Destroy(buildingClone);
+            buildingClone = null;
+        }
+        else
+        {
+            isSelectedBuilding = true;
+            buildingClone = Instantiate(buildingPrefabs[buildingIndex]); 
+            buildingClone.GetComponent<MeshRenderer>().material.color = Color.blue; 
+            buildingClone.GetComponent<Collider>().enabled = false; 
         }
     }
+
 
     public void RemoveBuildings() 
     { 
