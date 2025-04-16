@@ -276208,6 +276208,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Restaurant
       objectReference: {fileID: 0}
+    - target: {fileID: 866972907211678322, guid: c4fd89995784e4a0c968067062b2d927, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1358900829449105112, guid: c4fd89995784e4a0c968067062b2d927, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2271321407203760487, guid: c4fd89995784e4a0c968067062b2d927, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.034897
@@ -276247,6 +276255,22 @@ PrefabInstance:
     - target: {fileID: 2271321407203760487, guid: c4fd89995784e4a0c968067062b2d927, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3715858577194068621, guid: c4fd89995784e4a0c968067062b2d927, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4745549016124116210, guid: c4fd89995784e4a0c968067062b2d927, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7749092753350378093, guid: c4fd89995784e4a0c968067062b2d927, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109502659679778242, guid: c4fd89995784e4a0c968067062b2d927, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

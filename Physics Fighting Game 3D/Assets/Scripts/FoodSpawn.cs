@@ -17,22 +17,19 @@ public class FoodSpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (coolDown <= 0)
+        if (placeBuilding.isPlacedRestauant)
         {
-
-            if (placeBuilding.isPlacedRestauant)
+            if (coolDown <= 0)
             {
                 SpawnFood();
+                coolDown = 10;
             }
             else
             {
-                coolDown = 10;
+                coolDown -= Time.deltaTime;
             }
         }
-        else
-        {
-            coolDown -= Time.deltaTime;
-        }
+        
     }
     private void SpawnFood()
     {
