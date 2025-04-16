@@ -61,6 +61,7 @@ public class PlaceBuilding : MonoBehaviour
     }
     void Update()
     {
+        print(isSelectedBuilding);
         if (Input.GetKeyDown(KeyCode.Alpha1)) 
         {
             buildingIndex = 0; 
