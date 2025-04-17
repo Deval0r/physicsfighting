@@ -17,6 +17,6 @@ public class PlayButton : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("FullGame1");
+        SceneManager.LoadScene(0);
     }
 }

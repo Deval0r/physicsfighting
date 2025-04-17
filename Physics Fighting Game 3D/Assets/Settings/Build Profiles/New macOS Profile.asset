@@ -19,15 +19,7 @@ MonoBehaviour:
     rid: 3989689262103592960
   m_Scenes:
   - m_enabled: 1
-    m_path: Assets/BLOCKBR GAME/Scenes/SampleScene.unity
-  - m_enabled: 1
-    m_path: Assets/Scenes/CityBuilder.unity
-  - m_enabled: 1
-    m_path: Assets/Scenes/FirstPerson.unity
-  - m_enabled: 1
-    m_path: Assets/Scenes/FullGame.unity
-  - m_enabled: 1
-    m_path: Assets/Scenes/FullGame 1.unity
+    m_path: Assets/Scenes/FullGame1.unity
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
     m_Settings: []
