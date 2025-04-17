@@ -140855,6 +140855,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2445870683075521536, guid: 404d8cc1fb3a87148bd90a1c2a834a82, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1274548376}
+    - targetCorrespondingSourceObject: {fileID: 2445870683075521536, guid: 404d8cc1fb3a87148bd90a1c2a834a82, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1274548377}
   m_SourcePrefab: {fileID: 100100000, guid: 404d8cc1fb3a87148bd90a1c2a834a82, type: 3}
 --- !u!4 &1002663290 stripped
 Transform:
@@ -177929,6 +177932,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   secondaryObject: {fileID: 1551053459}
   nukeTriggerScript: {fileID: 1551053464}
+--- !u!114 &1274548377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274548372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28fd494b9317f64409eab78de576201c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundClip: {fileID: 8300000, guid: b6f52cdb9faa6364eadb2c6b328df1c5, type: 3}
 --- !u!1001 &1274856656
 PrefabInstance:
   m_ObjectHideFlags: 0
