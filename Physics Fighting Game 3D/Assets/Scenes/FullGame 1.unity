@@ -150668,7 +150668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e04da0d567252433f8832b531ea3e078, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placeBuilding: {fileID: 0}
+  placeBuilding: {fileID: 1406377995}
 --- !u!114 &1066407063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150715,7 +150715,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1406377995}
         m_TargetAssemblyTypeName: PlaceBuilding, Assembly-CSharp
-        m_MethodName: PlaceBuildings
+        m_MethodName: RemoveBuildings
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
