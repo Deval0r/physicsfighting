@@ -36100,6 +36100,7 @@ MonoBehaviour:
   rotationSpeed: 1500
   scaleSpeed: 5
   selectedScale: 1.2
+  selectSound: {fileID: 8300000, guid: 209472735c7d3db419a9b28bdc823a69, type: 3}
 --- !u!1001 &267366596
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -164593,6 +164594,7 @@ MonoBehaviour:
   rotationSpeed: 1500
   scaleSpeed: 5
   selectedScale: 1.2
+  selectSound: {fileID: 8300000, guid: 209472735c7d3db419a9b28bdc823a69, type: 3}
 --- !u!4 &1176967039 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8260414767725919869, guid: 866a9b4251af6a742b767b11667a58bd, type: 3}
@@ -178952,6 +178954,7 @@ MonoBehaviour:
   rotationSpeed: 1500
   scaleSpeed: 5
   selectedScale: 1.2
+  selectSound: {fileID: 8300000, guid: 209472735c7d3db419a9b28bdc823a69, type: 3}
 --- !u!1001 &1280377969
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -192389,6 +192392,7 @@ MonoBehaviour:
   rotationSpeed: 1500
   scaleSpeed: 5
   selectedScale: 1.2
+  selectSound: {fileID: 8300000, guid: 209472735c7d3db419a9b28bdc823a69, type: 3}
 --- !u!4 &1371563596 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8260414767725919869, guid: 866a9b4251af6a742b767b11667a58bd, type: 3}
@@ -196915,8 +196919,8 @@ MonoBehaviour:
   - {fileID: 119446, guid: 6a03abf06fc3f154abc371fa4e38f7d1, type: 3}
   - {fileID: 812943966743028426, guid: c4fd89995784e4a0c968067062b2d927, type: 3}
   - {fileID: 3742142680765950103, guid: 42cea2ddac2a540df81743c447114c84, type: 3}
-  soundSource: {fileID: 0}
-  triggerSound: {fileID: 0}
+  soundSource: {fileID: 1406377993}
+  triggerSound: {fileID: 8300000, guid: 69cf4f07d913b4435892dc7640af3ffe, type: 3}
   scaleFactor: 5
 --- !u!4 &1406377996
 Transform:
@@ -221404,6 +221408,7 @@ MonoBehaviour:
   rotationSpeed: 1500
   scaleSpeed: 5
   selectedScale: 1.2
+  selectSound: {fileID: 8300000, guid: 209472735c7d3db419a9b28bdc823a69, type: 3}
 --- !u!4 &1575748463 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8260414767725919869, guid: 866a9b4251af6a742b767b11667a58bd, type: 3}
