@@ -63,7 +63,6 @@ public class PlaceBuilding : MonoBehaviour
     }
     void Update()
     {
-        print(isSelectedBuilding);
         buildingClonePrefab = buildingClone;
         if (Input.GetKeyDown(KeyCode.Alpha1)) 
         {
