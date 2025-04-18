@@ -523,7 +523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43acf3a97822140b58c7a6c88e65b1ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodPrefab: {fileID: 25740380204694587, guid: 6e6edc1075286451e95b806b8616dda7, type: 3}
+  foodPrefab: {fileID: 4719213795909781837, guid: 2c2b5e1936205fc409afa74ad8bc8990, type: 3}
   foodSpawnPoint: {fileID: 8373321933806071296}
   placeBuilding: {fileID: 0}
 --- !u!1001 &2738173818702465105
