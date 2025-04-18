@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class PlayerHealth : MonoBehaviour
 {
     public int maxHealth = 100;
-    private float currentHealth;
+    public float currentHealth;
 
     public Slider healthSlider; // Reference to the UI Slider
     public float healthDrainTime = 150f; // Time in seconds for health to reach zero
