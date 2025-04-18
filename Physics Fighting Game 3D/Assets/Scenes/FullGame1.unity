@@ -25916,7 +25916,6 @@ GameObject:
   - component: {fileID: 198449935}
   - component: {fileID: 198449937}
   - component: {fileID: 198449938}
-  - component: {fileID: 198449939}
   m_Layer: 3
   m_Name: Capsule
   m_TagString: Player
@@ -26335,20 +26334,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &198449939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 198449927}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b05a16481484b438489fcbef2c5fb9f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  healthSlider: {fileID: 2040416244}
 --- !u!4 &198461532 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8260414767725919869, guid: 866a9b4251af6a742b767b11667a58bd, type: 3}
@@ -196842,6 +196827,7 @@ GameObject:
   - component: {fileID: 1406377998}
   - component: {fileID: 1406377999}
   - component: {fileID: 1406378000}
+  - component: {fileID: 1406378001}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -196961,6 +196947,8 @@ MonoBehaviour:
   money: 0
   power: 0
   placeBuilding: {fileID: 1406377995}
+  targetObject: {fileID: 1274548372}
+  player: {fileID: 198449927}
 --- !u!114 &1406377995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197070,6 +197058,21 @@ MonoBehaviour:
   audioSource: {fileID: 1406377993}
   enableCondition: 0
   fadeDuration: 1
+--- !u!114 &1406378001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406377992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b05a16481484b438489fcbef2c5fb9f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  healthSlider: {fileID: 2040416244}
+  healthDrainTime: 150
 --- !u!1001 &1406686772
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -281465,7 +281468,7 @@ GameObject:
   - component: {fileID: 2040416244}
   m_Layer: 5
   m_Name: PLAYERHEALTH
-  m_TagString: Untagged
+  m_TagString: HealthSlider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -8,6 +8,7 @@ TagManager:
   - NUKETRIGGEROBJ
   - SpawnPoint
   - Building
+  - HealthSlider
   layers:
   - Default
   - TransparentFX

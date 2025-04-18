@@ -1,15 +1,31 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
     public int maxHealth = 100;
-    private int currentHealth;
+    private float currentHealth;
 
     public Slider healthSlider; // Reference to the UI Slider
+    public float healthDrainTime = 150f; // Time in seconds for health to reach zero
 
-    void Start()
+    public void Start()
     {
+        // If the health slider is not assigned in the Inspector, find it by tag
+        if (healthSlider == null)
+        {
+            GameObject sliderObject = GameObject.FindWithTag("HealthSlider");
+            if (sliderObject != null)
+            {
+                healthSlider = sliderObject.GetComponent<Slider>();
+            }
+            else
+            {
+                Debug.LogWarning("Health slider not found! Make sure it is tagged as 'HealthSlider'.");
+            }
+        }
+
         currentHealth = maxHealth; // Initialize player health
 
         if (healthSlider != null)
@@ -19,14 +35,32 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damageAmount)
+    void Update()
     {
-        currentHealth -= damageAmount;
+        // Gradual health reduction over time
+        float healthDrainRate = maxHealth / healthDrainTime; // Health to reduce per second
+        currentHealth -= healthDrainRate * Time.deltaTime;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth); // Ensure health stays within bounds
 
         if (healthSlider != null)
         {
             healthSlider.value = currentHealth; // Update the Slider value
+        }
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void TakeDamage(int damageAmount)
+    {
+        currentHealth -= damageAmount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
+        if (healthSlider != null)
+        {
+            healthSlider.value = currentHealth;
         }
 
         Debug.Log($"Player took {damageAmount} damage. Current health: {currentHealth}");
@@ -37,9 +71,24 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    public int GetCurrentHealth()
+    {
+        return Mathf.CeilToInt(currentHealth);
+    }
+
+    public void SetCurrentHealth(int health)
+    {
+        currentHealth = Mathf.Clamp(health, 0, maxHealth);
+
+        if (healthSlider != null)
+        {
+            healthSlider.value = currentHealth; // Update the Slider value
+        }
+    }
+
     void Die()
     {
         Debug.Log("Player is dead!");
-        // Add logic for player death (e.g., restart level, show game over screen, etc.)
+        SceneManager.LoadScene("GameOver"); // Replace with your desired scene name
     }
 }
